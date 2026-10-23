@@ -1,0 +1,1793 @@
+
+Loading older messages…
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cyber Blasters</title>
+<style>
+:root{--bg:#050914;--panel:#0d1729;--cyan:#00f5ff;--blue:#287bff;--red:#ff3864;--green:#52ffae;--text:#e9f5ff}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(circle at top,#112347,#050914 55%);color:var(--text);font-family:Arial,sans-serif}
+header{padding:22px;text-align:center;border-bottom:1px solid #19375b;background:#071020}
+header h1{margin:0;color:var(--cyan);letter-spacing:5px;text-shadow:0 0 20px #00f5ff77}
+header p{color:#9cb5d4}
+nav{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;padding:12px;background:#081122;position:sticky;top:0;z-index:10}
+button,select,input,textarea{font:inherit}
+button{background:#102744;color:var(--cyan);border:1px solid #23617a;border-radius:8px;padding:10px 14px;cursor:pointer;transition:.2s}
+button:hover{background:#174366;box-shadow:0 0 15px #00f5ff33;transform:translateY(-1px)}
+button.primary{background:#006b80;color:white}
+button.danger{color:#ff7894;border-color:#7b2a47}
+main{max-width:1100px;margin:auto;padding:20px}
+.page{display:none;animation:fade .3s}.page.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+h2{color:var(--cyan)}h3{color:#a7cfff}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.card{background:linear-gradient(145deg,#101e34,#091222);border:1px solid #1c3658;border-radius:14px;padding:18px;margin-bottom:14px}
+.card p,.muted{color:#a4bad4;line-height:1.6}
+.big{font-size:28px;color:var(--cyan);font-weight:bold}
+input,select,textarea{background:#06101e;color:white;border:1px solid #2a4b70;border-radius:7px;padding:11px;width:100%;margin:6px 0 12px}
+label{display:block;color:#a8c6e9;font-size:14px}
+canvas{display:block;width:100%;max-width:900px;background:#030711;border:1px solid #1a5274;border-radius:12px;touch-action:none}
+.gamebar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:12px 0}
+.stat{background:#09182b;border:1px solid #1c3e60;padding:9px 12px;border-radius:8px}
+.stat b{color:var(--cyan)}
+.progress{height:8px;background:#172941;border-radius:8px;overflow:hidden;margin:8px 0}
+.progress span{display:block;height:100%;background:linear-gradient(90deg,#287bff,#00f5ff);width:0;transition:width .2s}
+.answer{display:block;width:100%;text-align:left;margin:8px 0}
+.answer.correct{border-color:var(--green);color:var(--green)}
+.answer.wrong{border-color:var(--red);color:var(--red)}
+#chatLog{height:260px;overflow:auto;background:#06101e;padding:12px;border-radius:8px;margin-bottom:10px}
+.message{margin:9px 0;padding:10px;border-radius:8px;background:#10223a;line-height:1.5}
+.message.user{border-left:3px solid var(--blue)}.message.bot{border-left:3px solid var(--cyan)}
+footer{text-align:center;color:#6f8aa9;padding:25px}
+#toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#102744;border:1px solid var(--cyan);padding:12px 20px;border-radius:10px;display:none;z-index:20}
+
+/* MULTICOLOR CYBER THEME — electric blue, neon cyan, cyber red and orange. */
+:root{--bg:#050914;--panel:#0d1729;--cyan:#00f5ff;--blue:#287bff;--red:#ff3864;--green:#ff9d00;--orange:#ff9d00;--silver:#d8e0e7;--text:#e9f5ff}
+body{background:radial-gradient(circle at 12% 0%,#112347 0,#0d1729 32%,#050914 70%);color:var(--text)}
+header{border-bottom:1px solid #ff9d00;background:linear-gradient(105deg,#0b1016,#112744 55%,#071020)}
+header h1{color:#f5f7fa;text-shadow:0 0 10px #00f5ff70,0 0 22px #ff9d0055;letter-spacing:5px}
+header p{color:#d5dde4}
+nav{background:#081122;border-bottom:1px solid #19375b}
+button{background:#102744;color:#00f5ff;border-color:#23617a}
+button:hover{background:#174366;color:#ffcf73;border-color:#ff9d00;box-shadow:0 0 13px #ff9d0040}
+button.primary{background:#287a32;color:#fff;border-color:#00f5ff}
+button.primary:hover{background:#369342;color:#fff}
+button.danger{color:#ff718c;border-color:#ff3864}
+h2{color:#00f5ff;text-shadow:0 0 8px #00f5ff25}
+h3{color:#f1f5f9}
+.card{background:linear-gradient(145deg,#101e34,#091222);border-color:#1c3658}
+.card p,.muted{color:#a4bad4}
+.big{color:#ff9d00}
+input,select,textarea{background:#06101e;border-color:#2a4b70;color:#f8fafc}
+input:focus,select:focus,textarea:focus{outline:1px solid #00f5ff;border-color:#00f5ff}
+label{color:#d8e0e7}
+canvas{border-color:#ff9d00}
+.stat{background:#111920;border-color:#53616b}
+.stat b{color:#ff9d00}
+.progress{background:#303a42}
+.progress span{background:linear-gradient(90deg,#00f5ff,#ff9d00,#ff3864)}
+.answer.correct{border-color:#00f5ff;color:#00f5ff}
+.answer.wrong{border-color:#ff3864;color:#ff718c}
+.message{background:#102744}
+.message.user{border-left-color:#00f5ff}
+.message.bot{border-left-color:#ff9d00}
+footer{color:#c0c9d1}
+#toast{background:#102744;border-color:#ff9d00;color:#f8fafc}
+/* Small color-coded accents across content cards; no purple accent is used. */
+.grid>.card:nth-child(4n+1){box-shadow:inset 3px 0 #00f5ff}
+.grid>.card:nth-child(4n+2){box-shadow:inset 3px 0 #ff3864}
+.grid>.card:nth-child(4n+3){box-shadow:inset 3px 0 #ff9d00}
+.grid>.card:nth-child(4n){box-shadow:inset 3px 0 #d8e0e7}
+
+
+
+.classification-prompt{font-size:18px;line-height:1.7;overflow-wrap:anywhere;color:#f1f5f9;padding:10px 0}
+.correct-feedback{border-color:#00f5ff!important}
+.wrong-feedback{border-color:#ff3864!important}
+.answer:disabled{opacity:1}
+
+/* Fit arcade games to the current browser window so players don't lose while scrolling. */
+body.playing-game{overflow:hidden;height:100dvh;}
+body.playing-game header,body.playing-game nav,body.playing-game footer{display:none!important;}
+body.playing-game main{position:fixed;inset:0;width:100%;height:100dvh;max-width:none;margin:0;padding:8px;padding-top:max(8px,env(safe-area-inset-top));padding-bottom:max(8px,env(safe-area-inset-bottom));overflow:hidden;display:flex;align-items:stretch;}
+body.playing-game .page.active{display:flex;flex-direction:column;align-items:stretch;gap:7px;width:100%;height:100%;min-height:0;overflow:hidden;animation:none;}
+body.playing-game .page.active h2{font-size:clamp(14px,2.4vh,21px);line-height:1.1;margin:0;flex:0 0 auto;}
+body.playing-game #shooter>p.muted:first-of-type,body.playing-game #neon>p.muted:first-of-type{display:none;}
+body.playing-game .gamebar{margin:0;gap:6px;flex:0 0 auto;}
+body.playing-game .stat{font-size:clamp(11px,1.8vh,14px);padding:5px 8px;}
+body.playing-game .gamebar button{font-size:clamp(11px,1.8vh,14px);padding:7px 9px;}
+body.playing-game #shCanvas,body.playing-game #neCanvas{display:block;flex:1 1 auto;width:auto;height:auto;max-width:100%;max-height:100%;min-width:0;min-height:0;align-self:center;object-fit:contain;}
+body.playing-game #shooter>#shStatus,body.playing-game #neon>#neStatus{font-size:12px;line-height:1.2;margin:0;min-height:15px;flex:0 0 auto;}
+@media(max-width:600px){
+ body.playing-game main{padding:5px;padding-top:max(5px,env(safe-area-inset-top));padding-bottom:max(5px,env(safe-area-inset-bottom));}
+ body.playing-game .page.active{gap:5px;}
+ body.playing-game .gamebar{gap:4px;}
+ body.playing-game .stat{padding:4px 6px;font-size:11px;}
+ body.playing-game .gamebar button{padding:7px 8px;font-size:11px;}
+}
+
+
+/* 3D Cyber Vault game */
+#threeStage{position:relative;flex:1 1 auto;min-height:190px;overflow:hidden;border:1px solid #ff9d00;border-radius:12px;background:#030711;box-shadow:inset 0 0 24px #00f5ff10}
+#threeCanvas{display:block;width:100%;height:100%;max-width:none;max-height:none;border:0;border-radius:0;background:#030711;touch-action:none}
+#threeOverlay{position:absolute;inset:0;display:none;align-items:center;justify-content:center;text-align:center;padding:20px;background:#030711bd;color:#f1f5f9}
+#threeOverlay .overlay-card{background:#0d1319ed;border:1px solid #00f5ff;border-radius:14px;padding:22px;max-width:420px;box-shadow:0 0 24px #00f5ff25}
+#threeOverlay h3{color:#00f5ff;font-size:clamp(22px,4vw,38px);margin:0 0 12px}
+.d3-controls{display:flex;gap:7px;align-items:center;justify-content:center;flex-wrap:wrap}
+.d3-controls button{touch-action:manipulation;min-width:74px}
+body.playing-game #threeStage{min-height:0;flex:1 1 auto;width:100%}
+body.playing-game #threeCanvas{flex:initial;min-width:0;min-height:0;width:100%;height:100%;align-self:stretch;object-fit:initial}
+body.playing-game #cyber3d>p.muted:first-of-type{display:none}
+body.playing-game #cyber3d .d3-controls{flex:0 0 auto;margin:0;gap:5px}
+body.playing-game #cyber3d .d3-controls button{font-size:clamp(11px,1.8vh,14px);padding:7px 10px}
+body.playing-game #cyber3d>#d3Status{font-size:12px;line-height:1.2;margin:0;min-height:15px;flex:0 0 auto}
+@media(max-width:600px){#threeStage{min-height:160px}body.playing-game #cyber3d .d3-controls button{padding:7px 8px;min-width:64px}}
+
+
+/* CYBER AWARENESS PRO — editorial threat-intelligence layout */
+.awareness-page{--aw-ink:#f4f7f7;--aw-muted:#b4c0c2;--aw-line:#354247;--aw-panel:#10171b;--aw-green:#00f5ff;--aw-orange:#ff9d00;--aw-red:#ff3864}
+.awareness-page h2,.awareness-page h3,.awareness-page h4{margin-top:0}
+.aw-hero{position:relative;display:grid;grid-template-columns:minmax(0,1.45fr) minmax(275px,.8fr);gap:28px;align-items:center;overflow:hidden;padding:clamp(22px,4vw,42px);margin:0 0 18px;border:1px solid #46534d;border-radius:22px;background:linear-gradient(115deg,#11191d 0%,#11191d 50%,#1a231c 100%);box-shadow:0 22px 55px #0005}
+.aw-hero:before{content:"";position:absolute;right:-95px;top:-145px;width:360px;height:360px;border-radius:50%;border:1px solid #00f5ff30;box-shadow:0 0 0 32px #00f5ff08,0 0 0 72px #ff9d0008;pointer-events:none}
+.aw-hero:after{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(#00f5ff,#ff9d00,#ff3864)}
+.aw-hero-copy,.aw-readiness-panel{position:relative;z-index:1}
+.aw-eyebrow{display:flex;align-items:center;gap:8px;font-size:10px;font-weight:800;letter-spacing:2px;color:#ffbf58;text-transform:uppercase;margin-bottom:13px}
+.aw-live-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#00f5ff;box-shadow:0 0 12px #00f5ff}
+.aw-hero h2{font-size:clamp(29px,4.2vw,49px);line-height:1.03;letter-spacing:-1.8px;color:#f5f7f7;text-shadow:none;margin:0 0 16px;max-width:620px}
+.aw-hero-title-sub{display:block;margin-top:7px;color:#00f5ff;font-size:clamp(18px,2.2vw,27px);line-height:1.2;letter-spacing:-.5px}
+.aw-hero-desc{max-width:620px;font-size:15px;line-height:1.8;color:#c5d0d1!important;margin:0 0 22px}
+.aw-hero-actions{display:flex;flex-wrap:wrap;gap:9px}
+.aw-hero-actions button{padding:12px 15px}
+.aw-button-primary{background:#00f5ff!important;color:#101510!important;border:1px solid #8bff76!important;font-weight:800}
+.aw-button-primary:hover{background:#8bff76!important;color:#101510!important}
+.aw-button-secondary{background:#202a2e!important;border:1px solid #647177!important;color:#f3f6f5!important}
+.aw-hero-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
+.aw-hero-tags span{font-size:9px;letter-spacing:1.4px;border:1px solid #53605b;border-radius:4px;padding:6px 8px;color:#c5d0c9;background:#ffffff04}
+.aw-readiness-panel{border:1px solid #46544b;background:#0b1114ed;border-radius:15px;padding:20px;box-shadow:0 14px 35px #0003}
+.aw-panel-top,.aw-panel-foot{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:9px;letter-spacing:1.3px;color:#b6c2bd;font-weight:800}
+.aw-status-pill{display:inline-flex;align-items:center;gap:5px;padding:5px 7px;border-radius:4px;background:#263029;color:#b7ffc5;font-size:8px;letter-spacing:.7px}
+.aw-status-pill span{width:5px;height:5px;border-radius:50%;background:#00f5ff}
+.aw-readiness-main{display:flex;gap:18px;align-items:center;margin:25px 0 20px}
+.aw-readiness-dial{width:112px;height:112px;flex:0 0 112px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(#00f5ff var(--aw-deg,0deg),#303b3d 0deg);position:relative}
+.aw-readiness-dial:before{content:"";position:absolute;inset:7px;border-radius:50%;background:#0d1416;border:1px solid #334039}
+.aw-readiness-dial>div{position:relative;display:flex;flex-direction:column;align-items:center;gap:4px}
+.aw-readiness-dial strong{font-size:29px;line-height:1;color:#f4f7f4}
+.aw-readiness-dial span{font-size:8px;letter-spacing:1.8px;color:#a8b6ae}
+.aw-readiness-copy h3{font-size:15px;margin:0 0 8px;color:#f3f6f3}
+.aw-readiness-copy p,.aw-panel-note{font-size:11px;line-height:1.6;color:#aab8b0!important;margin:0}
+.aw-panel-rule{height:1px;background:#2e3a34;margin:0 0 14px}
+.aw-panel-foot{font-size:9px}
+.aw-panel-foot strong{font-size:10px;color:#00f5ff;letter-spacing:.3px}
+.aw-progress-track{height:5px;border-radius:99px;background:#2b3631;overflow:hidden;margin:9px 0 12px}
+.aw-progress-track span{display:block;height:100%;width:0;background:linear-gradient(90deg,#00f5ff,#ff9d00);transition:width .25s}
+.aw-panel-note{font-size:10px}
+.aw-principles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid var(--aw-line);border-radius:13px;overflow:hidden;margin:0 0 42px;background:#10171a}
+.aw-principle{display:flex;gap:12px;padding:16px 17px;border-right:1px solid var(--aw-line);align-items:flex-start}
+.aw-principle:last-child{border-right:0}
+.aw-principle-no{font-size:10px;font-weight:900;color:#ff9d00;letter-spacing:1px;padding-top:3px}
+.aw-principle strong{display:block;font-size:13px;color:#f5f7f5;margin-bottom:5px}
+.aw-principle p{font-size:11px;line-height:1.5;margin:0;color:#aebbbc}
+.aw-section-heading{display:flex;justify-content:space-between;align-items:end;gap:15px;margin:0 0 18px}
+.aw-section-heading h3,.aw-scenario-intro h3,.aw-surface h3{font-size:clamp(22px,3vw,29px);letter-spacing:-.7px;margin:0 0 8px;color:#f0f4f1}
+.aw-section-heading p,.aw-section-desc,.aw-scenario-intro p{font-size:13px;line-height:1.65;color:#aebbbc;margin:0;max-width:630px}
+.aw-threat-count{flex:0 0 auto;padding:8px 10px;border:1px solid #46544b;border-radius:5px;color:#d5e0d8;font-size:10px;letter-spacing:.5px;background:#10171a}
+.aw-library-tools{border:1px solid var(--aw-line);padding:13px;border-radius:12px;background:#10171a;margin-bottom:16px}
+.aw-search-wrap{display:flex;align-items:center;gap:10px;background:#080d0f;border:1px solid #3d4b4d;border-radius:7px;padding:0 12px;margin-bottom:12px}
+.aw-search-wrap>span{font-size:25px;color:#ff9d00;line-height:1}
+.aw-search-wrap input{border:0;outline:0;background:transparent;margin:0;padding:12px 0;color:#f3f6f4;box-shadow:none}
+.aw-filter-row{display:flex;flex-wrap:wrap;gap:7px}
+.aw-filter{font-size:10px;letter-spacing:.4px;padding:8px 11px;background:#182124;color:#bac7c5;border-color:#394747;border-radius:5px}
+.aw-filter.aw-filter-active{background:#253229;border-color:#00f5ff;color:#c7ffc0;box-shadow:inset 0 -2px #00f5ff}
+.aw-threat-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-bottom:13px}
+.aw-threat-card{background:linear-gradient(145deg,#141d20,#0d1316);border:1px solid #344246;border-radius:13px;padding:19px;min-width:0;position:relative;overflow:hidden;transition:border-color .18s,transform .18s}
+.aw-threat-card:hover{border-color:#6c7d72;transform:translateY(-2px)}
+.aw-threat-meta{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:16px}
+.aw-threat-id{font-size:9px;letter-spacing:1.5px;color:#94a5a3;font-weight:800}
+.aw-risk{font-size:8px;font-weight:800;letter-spacing:.8px;padding:5px 6px;border-radius:3px}
+.aw-risk-high,.aw-risk-critical{color:#ffabb6;border:1px solid #783541;background:#35191e}
+.aw-risk-medium{color:#ffd38a;border:1px solid #715328;background:#332817}
+.aw-threat-icon{width:35px;height:35px;display:grid;place-items:center;font-size:24px;border-radius:9px;margin-bottom:13px;background:#202a2b}
+.aw-icon-red{color:#ff647b;border:1px solid #75404a}.aw-icon-orange{color:#ffb84c;border:1px solid #74552c}.aw-icon-green{color:#75ff65;border:1px solid #3c7042}.aw-icon-silver{color:#e3ece8;border:1px solid #53615e}
+.aw-threat-card h4{font-size:17px;line-height:1.3;letter-spacing:-.2px;margin:0 0 9px;color:#f3f6f4}
+.aw-threat-summary{font-size:12px;line-height:1.75;color:#b5c1c0!important;margin:0 0 15px;min-height:62px}
+.aw-defense-block{background:#101c18;border-left:2px solid #00f5ff;padding:11px 12px;margin:0 0 12px}
+.aw-defense-block>span{font-size:8px;letter-spacing:1.6px;font-weight:900;color:#85ff78}
+.aw-defense-block p{font-size:11px;line-height:1.65;color:#d0dbd4;margin:6px 0 0}
+.aw-threat-card details{border-top:1px solid #2b383b;padding-top:10px}
+.aw-threat-card summary{cursor:pointer;color:#d0dad6;font-size:11px;font-weight:700;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.aw-threat-card summary::-webkit-details-marker{display:none}
+.aw-threat-card summary:after{content:"+";color:#ff9d00;font-size:17px}
+.aw-threat-card details[open] summary:after{content:"−"}
+.aw-threat-card details ul{margin:10px 0 1px;padding-left:19px;color:#acb9b7;font-size:11px;line-height:1.8}
+.aw-no-results{padding:22px;border:1px dashed #56645e;border-radius:10px;color:#d2ddd6;text-align:center;margin-bottom:20px}
+.aw-two-column{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin:38px 0}
+.aw-surface{border:1px solid #394648;background:#10171a;border-radius:15px;padding:23px;min-width:0}
+.aw-chain{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:19px}
+.aw-chain>div{padding:13px;border:1px solid #364247;background:#0b1114;border-radius:8px;min-height:109px}
+.aw-chain>div>span{color:#ff9d00;font-size:9px;font-weight:900;letter-spacing:1px}
+.aw-chain strong{display:block;margin:8px 0 5px;color:#f2f5f2;font-size:12px;letter-spacing:1px}
+.aw-chain p{margin:0;font-size:11px;line-height:1.55;color:#aab8b6}
+.aw-callout{display:flex;flex-direction:column;gap:7px;background:#2b2111;border:1px solid #6a5027;border-radius:8px;margin-top:12px;padding:13px}
+.aw-callout b{color:#ffb84c;font-size:9px;letter-spacing:1.5px}
+.aw-callout span{font-size:12px;line-height:1.55;color:#f0dfc5}
+.aw-checklist{margin-top:15px}
+.aw-checklist label{display:flex;gap:11px;align-items:flex-start;padding:12px 0;border-bottom:1px solid #2e3a3d;cursor:pointer}
+.aw-checklist label:last-child{border-bottom:0}
+.aw-checklist input{appearance:none;flex:0 0 18px;width:18px;height:18px;padding:0;margin:1px 0 0;background:#0a1013;border:1px solid #6a7772;border-radius:4px;cursor:pointer}
+.aw-checklist input:checked{background:#00f5ff;border-color:#00f5ff}
+.aw-checklist input:checked:after{content:"✓";display:block;text-align:center;color:#0c1709;font-weight:900;font-size:13px;line-height:16px}
+.aw-checklist label b{display:block;color:#f0f4f0;font-size:12px;margin-bottom:4px}
+.aw-checklist label small{display:block;color:#9faeab;font-size:10px;line-height:1.5}
+.aw-checklist label:has(input:checked) b{color:#baffb1}
+.aw-reset-checklist{font-size:10px;color:#bbc7c2;border-color:#46544d;background:#1a2421;margin-top:9px}
+.aw-scenario-section{display:grid;grid-template-columns:minmax(220px,.75fr) minmax(0,1.25fr);gap:22px;align-items:start;margin:0 0 26px;padding:24px;border:1px solid #394648;border-radius:16px;background:linear-gradient(115deg,#131b1d,#0e1517)}
+.aw-scenario-intro{padding:6px 0}
+.aw-scenario-card{background:#080e11;border:1px solid #43534c;border-radius:12px;padding:20px;min-width:0}
+.aw-scenario-number{font-size:9px;font-weight:900;color:#ff9d00;letter-spacing:1.6px;margin-bottom:12px}
+.aw-scenario-card h4{font-size:17px;line-height:1.45;color:#f4f6f4;margin:0 0 10px}
+.aw-scenario-card p{font-size:12px;line-height:1.7;color:#b3c0be;margin:0 0 12px;overflow-wrap:anywhere}
+.aw-scenario-choices{display:grid;gap:8px;margin-top:15px}
+.aw-scenario-choices button{text-align:left;font-size:11px;line-height:1.5;padding:11px 12px;background:#151f22;color:#e1e9e4;border-color:#3d4b4a}
+.aw-scenario-choices button:hover{border-color:#ff9d00;color:#fff}
+.aw-scenario-choices button:disabled{opacity:1}
+.aw-scenario-choices button.aw-choice-correct{border-color:#00f5ff;color:#baffb1;background:#132318}
+.aw-scenario-choices button.aw-choice-wrong{border-color:#ff3864;color:#ffb6c0;background:#29161b}
+.aw-scenario-feedback{padding:11px;margin-top:11px;border-radius:7px;font-size:11px;line-height:1.7}
+.aw-scenario-feedback.is-correct{border:1px solid #3f7043;background:#122117;color:#ceffca}
+.aw-scenario-feedback.is-wrong{border:1px solid #75404a;background:#251519;color:#ffd0d5}
+.aw-response-strip{display:grid;grid-template-columns:42px 1fr auto;gap:15px;align-items:center;padding:20px;border-radius:13px;border:1px solid #654e2c;background:linear-gradient(110deg,#271e12,#151914);margin-bottom:19px}
+.aw-response-mark{width:37px;height:37px;display:grid;place-items:center;border:1px solid #ff9d00;background:#352512;border-radius:50%;font-size:22px;color:#ffbd4a;font-weight:900}
+.aw-response-strip .aw-eyebrow{margin-bottom:7px}
+.aw-response-strip h3{margin:0 0 6px;color:#f7f2e9;font-size:18px}
+.aw-response-strip p{margin:0;color:#d0c8bb;font-size:11px;line-height:1.7;max-width:820px}
+.aw-response-strip>button{white-space:nowrap;color:#ffcd80;border-color:#7a5b2b;background:#2c2112;font-size:11px}
+.aw-footer-note{text-align:center;padding:12px 5px 4px;font-size:9px;letter-spacing:1.4px;font-weight:800;color:#899993}
+@media(max-width:850px){.aw-hero{grid-template-columns:1fr;gap:23px}.aw-readiness-panel{max-width:none}.aw-principles{grid-template-columns:repeat(2,minmax(0,1fr))}.aw-principle:nth-child(2){border-right:0}.aw-principle:nth-child(-n+2){border-bottom:1px solid var(--aw-line)}.aw-two-column{grid-template-columns:1fr}.aw-scenario-section{grid-template-columns:1fr;gap:15px}}
+@media(max-width:560px){.aw-hero{padding:23px 18px;border-radius:16px}.aw-hero h2{font-size:31px}.aw-section-heading{align-items:start;flex-direction:column}.aw-threat-grid{grid-template-columns:1fr}.aw-threat-summary{min-height:0}.aw-principles{grid-template-columns:1fr 1fr}.aw-principle{padding:13px 11px;gap:8px}.aw-principle p{font-size:10px}.aw-surface{padding:18px}.aw-response-strip{grid-template-columns:35px 1fr;gap:11px;padding:15px}.aw-response-mark{width:32px;height:32px}.aw-response-strip>button{grid-column:2;justify-self:start}.aw-scenario-section{padding:17px}.aw-filter-row{gap:6px}.aw-filter{padding:7px 8px;font-size:9px}}
+
+
+/* CONNECTED TRAINING HUB */
+.aw-learning-links{margin:26px 0 14px;padding:22px;border:1px solid #3b4944;border-radius:16px;background:linear-gradient(120deg,#11191c,#171e18)}
+.aw-learning-links h3{font-size:clamp(21px,3vw,29px);margin:0 0 7px;color:#f0f4f1}
+.aw-learning-links>p{margin:0 0 16px;font-size:13px;line-height:1.65;color:#aebbbc}
+.aw-link-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.aw-link-card{display:flex;flex-direction:column;align-items:flex-start;gap:8px;min-width:0;padding:16px;text-align:left;background:#0c1215;border:1px solid #3a4942;border-radius:10px;color:#eef4ef;min-height:134px}
+.aw-link-card strong{font-size:13px;line-height:1.3;color:#f4f7f4}
+.aw-link-card span{font-size:11px;line-height:1.55;color:#aebbb4}
+.aw-link-card em{margin-top:auto;font-style:normal;font-size:10px;letter-spacing:.8px;font-weight:800;color:#00f5ff}
+.aw-link-card:nth-child(3n+2) em{color:#ff9d00}.aw-link-card:nth-child(3n) em{color:#ff7d91}
+.aw-link-card:hover{background:#17211a;border-color:#00f5ff;transform:translateY(-2px)}
+.page-links{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;padding-top:12px;border-top:1px solid #344248}
+.page-links button{font-size:12px}
+.result-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+@media(max-width:720px){.aw-link-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:480px){.aw-link-grid{grid-template-columns:1fr}.aw-link-card{min-height:0}}
+
+
+
+/* CYBER SPIN — interactive challenge wheel */
+.spin-layout{display:flex;flex-direction:column;align-items:center;gap:22px;margin:20px auto 28px;width:100%;max-width:900px}
+.spin-wheel-panel{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;max-width:680px;box-sizing:border-box;padding:22px 14px 18px;border-radius:20px;border:1px solid #3f4b46;background:radial-gradient(circle at 50% 43%,#1d2a25 0,#101819 52%,#090f12 100%);overflow:hidden}
+.spin-wheel-panel:before{content:"";position:absolute;inset:9px;border:1px solid #00f5ff20;border-radius:15px;pointer-events:none}
+.spin-wheel-topline{display:flex;justify-content:space-between;width:100%;max-width:500px;gap:8px;padding:0 7px 10px;color:#aebbb4;font-size:9px;font-weight:800;letter-spacing:1.6px}
+.spin-wheel-topline strong{color:#00f5ff;font-weight:900}
+.spin-wheel-wrap{position:relative;width:min(100%,520px);aspect-ratio:1;display:grid;place-items:center;isolation:isolate;filter:drop-shadow(0 12px 20px #0008)}
+.spin-wheel-wrap:before{content:"";position:absolute;inset:0;border-radius:50%;border:5px solid #287bff;box-shadow:0 0 0 3px #202a2a,0 0 23px #00f5ff30,inset 0 0 12px #000;pointer-events:none;z-index:2}
+.spin-wheel-canvas{width:100%;height:auto;aspect-ratio:1;max-width:none!important;max-height:none;border:0!important;border-radius:50%!important;background:transparent!important;touch-action:auto;display:block}
+.spin-pointer{position:absolute;top:-5px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:19px solid transparent;border-right:19px solid transparent;border-top:38px solid #f7f9f7;filter:drop-shadow(0 2px 0 #ff9d00) drop-shadow(0 0 9px #00f5ff);z-index:5;pointer-events:none}
+.spin-wheel-hint{display:flex;justify-content:center;align-items:center;gap:8px;margin-top:15px;color:#9eafaa;font-size:10px;letter-spacing:1.2px;text-transform:uppercase;text-align:center}
+.spin-wheel-hint span{color:#ff9d00}
+.spin-controls{display:flex;gap:9px;flex-wrap:wrap;justify-content:center;width:100%;margin-top:17px;position:relative;z-index:2}
+.spin-main-button{min-width:180px;font-size:13px;letter-spacing:.5px;font-weight:900;background:linear-gradient(110deg,#00f5ff,#baff63)!important;color:#0b130a!important;border:1px solid #baff8b!important;box-shadow:0 0 20px #00f5ff2a}
+.spin-main-button:hover{background:#bdff9c!important;color:#081007!important;box-shadow:0 0 26px #00f5ff60!important}
+.spin-main-button:disabled{filter:grayscale(.65);opacity:.65;box-shadow:none;transform:none}
+.spin-side-panel{display:flex;flex-direction:column;gap:12px;min-width:0;width:100%;max-width:680px;margin:0 auto;text-align:center}.spin-side-panel .spin-result-card{text-align:center}.spin-side-panel .spin-launch-row{justify-content:center}.spin-side-panel .spin-mini-grid{text-align:left}.spin-side-panel .spin-history{text-align:left}
+.spin-kicker{font-size:9px;letter-spacing:1.8px;font-weight:900;color:#ff9d00;text-transform:uppercase}
+.spin-side-panel h3{font-size:clamp(23px,3vw,33px);line-height:1.1;letter-spacing:-.9px;color:#f4f7f4;margin:5px 0 3px}
+.spin-side-panel>p{font-size:13px;line-height:1.75;color:#afbfba;margin:0}
+.spin-result-card{border:1px solid #405147;border-radius:14px;background:linear-gradient(135deg,#121d17,#0d1416);padding:18px;min-height:160px}
+.spin-result-eyebrow{font-size:9px;font-weight:900;letter-spacing:1.6px;color:#91a39a}
+.spin-result-title{font-size:21px;color:#00f5ff;font-weight:900;line-height:1.25;margin:12px 0 8px;overflow-wrap:anywhere}
+.spin-result-description{font-size:12px;line-height:1.65;color:#b8c5be!important;margin:0}
+.spin-launch-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.spin-launch-row button{flex:1;min-width:130px}
+.spin-mini-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.spin-mini-stat{padding:12px;border:1px solid #33423d;border-radius:9px;background:#0d1416}
+.spin-mini-stat span{display:block;font-size:9px;letter-spacing:1.1px;color:#9fafaa;margin-bottom:7px}
+.spin-mini-stat strong{font-size:19px;color:#ff9d00}
+.spin-history{border-top:1px solid #34413c;padding-top:14px;margin-top:3px}
+.spin-history h4{margin:0 0 8px;color:#edf3ef;font-size:12px}
+.spin-history-list{display:flex;flex-direction:column;gap:7px}
+.spin-history-item{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:9px 10px;border-radius:7px;background:#101819;border:1px solid #273431;font-size:10px;color:#b5c0bb}
+.spin-history-item b{color:#e4ede6;font-size:10px}
+.spin-history-item span{color:#ff9d00;white-space:nowrap}
+.spin-feature-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:20px 0}
+.spin-feature{padding:16px;border:1px solid #34443e;border-radius:11px;background:#111918}
+.spin-feature strong{display:block;margin-bottom:6px;color:#f3f7f3;font-size:12px}
+.spin-feature p{color:#aebbb5;font-size:11px;line-height:1.65;margin:0}
+@media(max-width:800px){.spin-layout{display:flex;flex-direction:column;align-items:center}.spin-wheel-wrap{width:min(100%,460px)}.spin-side-panel{max-width:650px;width:100%;margin:auto}.spin-wheel-panel{padding:20px 10px 16px}}
+@media(max-width:500px){.spin-wheel-topline{font-size:8px;letter-spacing:1px}.spin-pointer{border-left-width:15px;border-right-width:15px;border-top-width:29px}.spin-wheel-wrap{width:min(100%,380px)}.spin-feature-grid{grid-template-columns:1fr}.spin-side-panel h3{font-size:25px}.spin-result-title{font-size:19px}}
+
+</style>
+</head>
+<body>
+<header>
+<h1>CYBER BLASTERS</h1>
+<p>CYBER BLASTERS // Interactive Cybersecurity Command Center</p>
+<div><span style="color:#52ffae">● SYSTEM ONLINE</span> &nbsp; <span id="clock"></span></div>
+</header>
+<nav>
+<button onclick="showPage('learn')">Cyber Awareness</button>
+<button onclick="showPage('home')">Command Center</button>
+<button onclick="showPage('spinWheel')">🎡 Spin the Wheel</button>
+<button onclick="showPage('password')">Password Lab</button>
+<button onclick="showPage('phishing')">Phishing Detective</button>
+<button onclick="showPage('phishGame')">Phishing Game: Safe or Not Safe?</button>
+<button onclick="showPage('passwordGame')">Password Game: Strong or Not Strong?</button>
+<button onclick="showPage('quiz')">Cyber Quiz</button>
+<button onclick="showPage('shooter')">THREAT VECTOR</button>
+<button onclick="showPage('neon')">NEON BREACH: APOCALYPSE PROTOCOL</button>
+<button onclick="startCyber3D()">3D CYBER VAULT</button>
+<button onclick="showPage('scores')">Leaderboard</button>
+<button onclick="showPage('friday')">FRIDAY the Cyber Man</button>
+<button id="soundBtn" onclick="toggleSound()">🔊 Sound ON</button>
+</nav>
+
+<main>
+
+<section id="spinWheel" class="page">
+  <div class="aw-eyebrow"><span class="aw-live-dot"></span> CYBER BLASTERS / CHALLENGE RANDOMIZER</div>
+  <h2>🎡 CYBER SPIN: THE CHALLENGE WHEEL</h2>
+  <p class="muted">Can't decide what to do next? Spin the wheel. It picks one activity by luck. You must launch and play that challenge before returning to unlock your next spin.</p>
+  <div class="spin-layout">
+    <div class="spin-wheel-panel">
+      <div class="spin-wheel-topline"><span>RANDOM CHALLENGE SELECTOR</span><strong>NO REPEATS? NO—PURE LUCK!</strong></div>
+      <div class="spin-wheel-wrap">
+        <div class="spin-pointer" aria-hidden="true"></div>
+        <canvas id="spinWheelCanvas" class="spin-wheel-canvas" width="600" height="600" aria-label="Animated Cyber Blasters challenge spinner wheel"></canvas>
+      </div>
+      <div class="spin-wheel-hint"><span>✦</span> Spin it. Own the challenge. <span>✦</span></div>
+      <div class="spin-controls">
+        <button id="spinWheelButton" class="spin-main-button" onclick="spinCyberWheel()">⚡ SPIN THE WHEEL</button>
+        <button onclick="resetCyberWheel()">Reset</button>
+      </div>
+    </div>
+    <div class="spin-side-panel">
+      <div><div class="spin-kicker">YOUR NEXT MISSION</div><h3>Let the wheel decide.</h3><p>Ten routes. One spin. The result launches straight into your selected learning activity or game.</p></div>
+      <div class="spin-result-card" aria-live="polite">
+        <div class="spin-result-eyebrow" id="spinResultEyebrow">AWAITING SPIN · ROUND 0</div>
+        <div class="spin-result-title" id="spinResultTitle">Ready, Defender?</div>
+        <p class="spin-result-description" id="spinResultDescription">Spin to receive a surprise cybersecurity mission. Your result will appear here, with a button to jump directly into it.</p>
+        <div class="spin-launch-row"><button id="spinLaunchButton" class="spin-main-button" onclick="launchCyberWheelPick()" disabled>LAUNCH MISSION ↗</button><button onclick="showPage('learn')">Read Awareness</button></div>
+      </div>
+      <div class="spin-mini-grid">
+        <div class="spin-mini-stat"><span>TOTAL SPINS</span><strong id="spinTotal">0</strong></div>
+        <div class="spin-mini-stat"><span>UNIQUE MISSIONS HIT</span><strong id="spinUnique">0 / 10</strong></div>
+      </div>
+      <div class="spin-history"><h4>RECENT SPINS</h4><div id="spinHistoryList" class="spin-history-list"><div class="spin-history-item"><b>No spins yet</b><span>Spin to begin</span></div></div></div>
+    </div>
+  </div>
+  <div class="spin-feature-grid">
+    <div class="spin-feature"><strong>01 / Totally interactive</strong><p>The wheel uses animated rotation and a pointer. Its selected segment determines the destination.</p></div>
+    <div class="spin-feature"><strong>02 / Connected to your site</strong><p>Every segment links to a real Cyber Blasters game, quiz, lab or assistant.</p></div>
+    <div class="spin-feature"><strong>03 / Your spin record</strong><p>Spin history and counts are stored locally in this browser; nothing is sent to a server.</p></div>
+  </div>
+</section>
+
+<section id="home" class="page">
+<div class="card">
+<h2>Welcome to Cyber Blasters</h2>
+<p>Your mission hub connects the learning library, hands-on labs, decision drills, both arcade games, the 3D Cyber Vault, your saved results and FRIDAY the Cyber Man. Use the dashboard cards or main navigation to move between every module.</p>
+<div class="grid">
+<div class="card"><div class="big" id="totalScore">0</div>Combined game score</div>
+<div class="card"><div class="big" id="bestScore">0</div>Top personal score</div>
+<div class="card"><div class="big" id="quizBest">0%</div>Best quiz score</div>
+<div class="card"><div class="big" id="awarenessBestHome">0%</div>Best field drill</div>
+</div>
+</div>
+<div class="grid">
+<div class="card"><h3>🚀 NEON BREACH: APOCALYPSE PROTOCOL</h3><p>Pilot your ship, destroy hostile drones, collect upgrades and defeat the boss.</p><button onclick="startGame('neon')">Launch Mission</button></div>
+<div class="card"><h3>🛡️ 3D CYBER VAULT: ZERO-DAY RUN</h3><p>Race through a 3D cyber corridor, blast malware drones, dodge firewall barriers, and collect green data cores.</p><button onclick="startCyber3D()">Enter 3D World</button></div>
+<div class="card"><h3>🎡 Spin the Cyber Wheel</h3><p>Let fate choose your next cybersecurity challenge. Spin for games, quick drills, labs and arcade missions.</p><button onclick="showPage('spinWheel')">Spin for a Challenge</button></div>
+<div class="card"><h3>💀 THREAT VECTOR</h3><p>Defend your system against red threat cores. Survive waves and take down bosses.</p><button onclick="startGame('shooter')">Start Defense</button></div>
+<div class="card"><h3>🎣 Phishing Game</h3><p>Read each message and decide whether it looks safe or not safe.</p><button onclick="startClassificationGame('phish')">Play Phishing Game</button></div>
+<div class="card"><h3>🔐 Password Game</h3><p>Look at fictional sample passwords and decide if each is strong or not strong.</p><button onclick="startClassificationGame('password')">Play Password Game</button></div>
+<div class="card"><h3>🛡️ Security Labs</h3><p>Test password strength, inspect suspicious messages and learn safe online habits.</p><button onclick="showPage('password')">Enter Labs</button></div>
+<div class="card"><h3>🤖 FRIDAY the Cyber Man</h3><p>Ask questions about phishing, malware, passwords and digital safety.</p><button onclick="showPage('friday')">Open Console</button></div>
+</div>
+<div class="card"><h3>Latest activity</h3><div id="activity">System initialized. Welcome, defender.</div></div>
+</section>
+
+<section id="learn" class="page active awareness-page">
+  <div class="aw-hero">
+    <div class="aw-hero-copy">
+      <div class="aw-eyebrow"><span class="aw-live-dot"></span> CYBER BLASTERS / FIELD GUIDE 01</div>
+      <h2>Cyber Awareness<span class="aw-hero-title-sub">Turn awareness into your first line of defense.</span></h2>
+      <p class="aw-hero-desc">Most attacks start with a decision: click, share, approve, or trust. Learn to spot the signal, verify the source, and respond before a small mistake becomes a big incident.</p>
+      <div class="aw-hero-actions">
+        <button class="aw-button-primary" onclick="startAwarenessAssessment()">Run the field drill <span aria-hidden="true">↗</span></button>
+        <button class="aw-button-secondary" onclick="startClassificationGame('phish')">Practice phishing detection</button>
+      </div>
+      <div class="aw-hero-tags"><span>IDENTITY</span><span>DEVICE</span><span>PRIVACY</span><span>HUMAN RISK</span></div>
+    </div>
+    <div class="aw-readiness-panel">
+      <div class="aw-panel-top"><span>DEFENDER READINESS</span><span class="aw-status-pill"><span></span> LOCAL PROFILE</span></div>
+      <div class="aw-readiness-main">
+        <div class="aw-readiness-dial" id="awarenessReadinessDial" style="--aw-deg:0deg"><div><strong id="awarenessReadiness">0%</strong><span>BASELINE</span></div></div>
+        <div class="aw-readiness-copy"><h3 id="awarenessReadinessTitle">Build your baseline</h3><p id="awarenessReadinessText">Complete the personal security checklist below to measure your defensive basics.</p></div>
+      </div>
+      <div class="aw-panel-rule"></div>
+      <div class="aw-panel-foot"><span>CHECKLIST CONTROLS</span><strong id="awarenessChecklistCount">0 / 7 complete</strong></div>
+      <div class="aw-progress-track"><span id="awarenessChecklistBar"></span></div>
+      <p class="aw-panel-note">Progress stays in this browser. It is a learning checklist, not a security audit.</p>
+    </div>
+  </div>
+
+  <div class="aw-principles" aria-label="Core security principles">
+    <div class="aw-principle"><span class="aw-principle-no">01</span><div><strong>Pause</strong><p>Urgency is a reason to slow down.</p></div></div>
+    <div class="aw-principle"><span class="aw-principle-no">02</span><div><strong>Verify</strong><p>Use a trusted, separate channel.</p></div></div>
+    <div class="aw-principle"><span class="aw-principle-no">03</span><div><strong>Protect</strong><p>Keep passwords, codes and data private.</p></div></div>
+    <div class="aw-principle"><span class="aw-principle-no">04</span><div><strong>Report</strong><p>Act early when something feels wrong.</p></div></div>
+  </div>
+
+  <div class="aw-section-heading">
+    <div><div class="aw-eyebrow">THREAT INTELLIGENCE / 01—10</div><h3>Know the attacker's playbook.</h3><p>Practical signal → likely risk → defensive move. Choose a topic or search the library.</p></div>
+    <div class="aw-threat-count" id="awarenessThreatCount">10 threat briefings</div>
+  </div>
+
+  <div class="aw-library-tools">
+    <label class="aw-search-wrap"><span aria-hidden="true">⌕</span><input id="awarenessSearch" type="search" placeholder="Search threats, warning signs or defenses…" aria-label="Search threat library"></label>
+    <div class="aw-filter-row" aria-label="Filter threat library">
+      <button class="aw-filter aw-filter-active" data-aw-filter="all" onclick="setAwarenessFilter('all')">All briefings</button>
+      <button class="aw-filter" data-aw-filter="identity" onclick="setAwarenessFilter('identity')">Identity</button>
+      <button class="aw-filter" data-aw-filter="malware" onclick="setAwarenessFilter('malware')">Malware</button>
+      <button class="aw-filter" data-aw-filter="people" onclick="setAwarenessFilter('people')">People &amp; scams</button>
+      <button class="aw-filter" data-aw-filter="privacy" onclick="setAwarenessFilter('privacy')">Privacy</button>
+      <button class="aw-filter" data-aw-filter="network" onclick="setAwarenessFilter('network')">Devices &amp; networks</button>
+    </div>
+  </div>
+
+  <div class="aw-threat-grid" id="awarenessThreatGrid">
+    <article class="aw-threat-card" data-category="identity">
+      <div class="aw-threat-meta"><span class="aw-threat-id">THREAT / 01</span><span class="aw-risk aw-risk-high">HIGH IMPACT</span></div>
+      <div class="aw-threat-icon aw-icon-red">↗</div><h4>Phishing &amp; fake sign-ins</h4>
+      <p class="aw-threat-summary">A message impersonates a trusted brand, school, bank or colleague to make you reveal information or open a dangerous link.</p>
+      <div class="aw-defense-block"><span>DEFENSE MOVE</span><p>Open the official app or type the known address yourself. Never share passwords, PINs or one-time codes through a message.</p></div>
+      <details><summary>Red flags to notice</summary><ul><li>Unexpected urgency or threats of account closure.</li><li>Sender address or domain subtly differs from the real one.</li><li>A link asks you to re-enter credentials without a clear reason.</li></ul></details>
+    </article>
+    <article class="aw-threat-card" data-category="identity">
+      <div class="aw-threat-meta"><span class="aw-threat-id">THREAT / 02</span><span class="aw-risk aw-risk-high">ACCOUNT RISK</span></div>
+      <div class="aw-threat-icon aw-icon-orange">⌁</div><h4>Password reuse &amp; credential attacks</h4>
+      <p class="aw-threat-summary">Attackers try exposed passwords from one site on other accounts, or guess common patterns at scale.</p>
+      <div class="aw-defense-block"><span>DEFENSE MOVE</span><p>Use a unique password for every account, store it in a reputable password manager, and enable multifactor authentication (MFA).</p></div>
+      <details><summary>Red flags to notice</summary><ul><li>Login alerts you do not recognize.</li><li>Password-reset messages you did not request.</li><li>Several accounts reuse the same password.</li></ul></details>
+    </article>
+    <article class="aw-threat-card" data-category="malware">
+      <div class="aw-threat-meta"><span class="aw-threat-id">THREAT / 03</span><span class="aw-risk aw-risk-critical">DATA RISK</span></div>
+      <div class="aw-threat-icon aw-icon-red">✳</div><h4>Malware &amp; ransomware</h4>
+      <p class="aw-threat-summary">A malicious file or app can spy, damage data, or lock files and demand payment.</p>
+      <div class="aw-defense-block"><span>DEFENSE MOVE</span><p>Keep software updated, download from trusted sources, use reputable endpoint protection, and maintain a separate backup you can restore.</p></div>
+      <details><summary>Red flags to notice</summary><ul><li>Unexpected attachments or installers.</li><li>Requests to disable protection or enable macros.</li><li>Unexpected file changes, pop-ups or security warnings.</li></ul></details>
+    </article>
+    <article class="aw-threat-card" data-category="people">
+      <div class="aw-threat-meta"><span class="aw-threat-id">THREAT / 04</span><span class="aw-risk aw-risk-high">TRUST RISK</span></div>
+      <div class="aw-threat-icon aw-icon-orange">◎</div><h4>Social engineering &amp; impersonation</h4>
+      <p class="aw-threat-summary">Someone creates pressure or pretends to be an authority figure to bypass your normal judgment.</p>
+      <div class="aw-defense-block"><span>DEFENSE MOVE</span><p>Verify money transfers, gift-card requests, password resets and sensitive requests using a known number or internal directory—not the details in the message.</p></div>
+      <details><summary>Red flags to notice</summary><ul><li>“Keep this secret” or “do it immediately.”</li><li>A request to bypass normal approval.</li><li>Unusual tone, payment method or change of bank details.</li></ul></details>
+    </article>
+    <article class="aw-threat-card" data-category="identity">
+      <div class="aw-threat-meta"><span class="aw-threat-id">THREAT / 05</span><span class="aw-risk aw-risk-high">LOGIN RISK</span></div>
+      <div class="aw-threat-icon aw-icon-silver">⌗</div><h4>MFA fatigue &amp; verification-code theft</h4>
+      <p class="aw-threat-summary">Repeated login prompts or fake support calls try to make you approve access or reveal a code.</p>
+      <div class="aw-defense-block"><span>DEFENSE MOVE</span><p>Reject prompts you did not initiate. Never read out an MFA code. Report repeated requests and use phishing-resistant methods when available.</p></div>
+      <details><summary>Red flags to notice</summary><ul><li>Login approvals arrive when you are not signing in.</li><li>Someone asks you to “confirm” a code over the phone.</li><li>Repeated prompts continue after you reject them.</li></ul></details>
+    </article>
+    <article class="aw-threat-card" data-category="network">
+      <div class="aw-threat-meta"><span class="aw-threat-id">THREAT / 06</span><span class="aw-risk aw-risk-medium">DEVICE RISK</span></div>
+      <div class="aw-threat-icon aw-icon-green">▣</div><h4>QR codes, USB drives &amp; unsafe downloads</h4>
+      <p class="aw-threat-summary">A code, removable drive or download can lead to a fake login page or unwanted software.</p>
+      <div class="aw-defense-block"><span>DEFENSE MOVE</span><p>Check the destination before opening it, get software from official sources, and do not connect unknown USB drives to your device.</p></div>
+      <details><summary>Red flags to notice</summary><ul><li>A QR sticker appears to cover another code.</li><li>A download comes from an unexpected pop-up.</li><li>A file asks for unusual permissions or protection to be disabled.</li></ul></details>
+    </article>
+    <article class="aw-threat-card" data-category="network">
+      <div class="aw-threat-meta"><span class="aw-threat-id">THREAT / 07</span><span class="aw-risk aw-risk-medium">NETWORK RISK</span></div>
+      <div class="aw-threat-icon aw-icon-silver">⌁</div><h4>Unsafe networks &amp; rogue hotspots</h4>
+      <p class="aw-threat-summary">A look-alike Wi-Fi name or untrusted network may expose activity or redirect you to fake pages.</p>
+      <div class="aw-defense-block"><span>DEFENSE MOVE</span><p>Confirm the network name with the venue, keep sharing turned off on public networks, and avoid sensitive work on networks you do not trust.</p></div>
+      <details><summary>Red flags to notice</summary><ul><li>Several confusingly similar Wi-Fi names.</li><li>A network demands unusual details before connecting.</li><li>A login page appears unexpectedly.</li></ul></details>
+    </article>
+    <article class="aw-threat-card" data-category="privacy">
+      <div class="aw-threat-meta"><span class="aw-threat-id">THREAT / 08</span><span class="aw-risk aw-risk-medium">PRIVACY RISK</span></div>
+      <div class="aw-threat-icon aw-icon-green">◉</div><h4>Digital footprint &amp; data oversharing</h4>
+      <p class="aw-threat-summary">Public posts, location details and personal facts can be combined to impersonate you or target your accounts.</p>
+      <div class="aw-defense-block"><span>DEFENSE MOVE</span><p>Review privacy settings, limit app permissions, avoid posting live location or sensitive documents, and remove information you no longer need to share.</p></div>
+      <details><summary>Red flags to notice</summary><ul><li>Apps request access unrelated to their function.</li><li>Public posts reveal routines, addresses or account-recovery clues.</li><li>Unknown people ask personal questions to “verify” you.</li></ul></details>
+    </article>
+    <article class="aw-threat-card" data-category="people">
+      <div class="aw-threat-meta"><span class="aw-threat-id">THREAT / 09</span><span class="aw-risk aw-risk-high">IMPERSONATION RISK</span></div>
+      <div class="aw-threat-icon aw-icon-orange">◌</div><h4>AI voice, video &amp; message scams</h4>
+      <p class="aw-threat-summary">A convincing voice note or video can imitate a friend, family member or executive to trigger a rushed decision.</p>
+      <div class="aw-defense-block"><span>DEFENSE MOVE</span><p>Use a pre-agreed verification phrase or call the person on a known number. Confirm unusual payment or secrecy requests through a second channel.</p></div>
+      <details><summary>Red flags to notice</summary><ul><li>Urgent requests that avoid normal verification.</li><li>Instructions to keep the request secret.</li><li>Money or credentials requested through an unfamiliar route.</li></ul></details>
+    </article>
+    <article class="aw-threat-card" data-category="people">
+      <div class="aw-threat-meta"><span class="aw-threat-id">THREAT / 10</span><span class="aw-risk aw-risk-medium">PERSONAL SAFETY</span></div>
+      <div class="aw-threat-icon aw-icon-red">✳</div><h4>Cyberbullying &amp; online harassment</h4>
+      <p class="aw-threat-summary">Abusive messages, threats or sharing private information can cause real harm beyond the screen.</p>
+      <div class="aw-defense-block"><span>DEFENSE MOVE</span><p>Do not retaliate. Save evidence, block and report the account, tighten privacy settings, and tell a trusted adult or appropriate authority if you feel unsafe.</p></div>
+      <details><summary>Red flags to notice</summary><ul><li>Repeated unwanted contact or threats.</li><li>Someone demands images, money or secrecy.</li><li>Private information is posted without permission.</li></ul></details>
+    </article>
+  </div>
+  <div id="awarenessNoResults" class="aw-no-results" hidden>No threat briefings match that search. Try another term or select “All briefings”.</div>
+
+  <div class="aw-two-column">
+    <section class="aw-surface aw-chain-section">
+      <div class="aw-eyebrow">ATTACK PATTERN / 4 STAGES</div><h3>Break the chain early.</h3>
+      <p class="aw-section-desc">Many incidents follow a recognisable sequence. Interrupting even one step can reduce the impact.</p>
+      <div class="aw-chain"><div><span>01</span><strong>LURE</strong><p>A message, call, QR code or file gets attention.</p></div><div><span>02</span><strong>TRUST</strong><p>The attacker creates urgency or impersonates someone.</p></div><div><span>03</span><strong>ACTION</strong><p>A click, approval, download or payment is triggered.</p></div><div><span>04</span><strong>IMPACT</strong><p>Account access, data loss, fraud or disruption follows.</p></div></div>
+      <div class="aw-callout"><b>DEFENDER RULE</b><span>Unexpected + urgent + sensitive request? Stop and verify independently.</span></div>
+    </section>
+    <section class="aw-surface aw-checklist-section">
+      <div class="aw-eyebrow">PERSONAL BASELINE / SAVE LOCALLY</div><h3>Harden your accounts.</h3>
+      <p class="aw-section-desc">Mark the controls you have already checked. Your progress is stored only in this browser.</p>
+      <div class="aw-checklist" id="awarenessChecklist">
+        <label><input type="checkbox" data-aw-check="mfa" onchange="toggleAwarenessChecklist(this)"><span><b>Enable MFA</b><small>Start with email, banking and important accounts.</small></span></label>
+        <label><input type="checkbox" data-aw-check="uniquePasswords" onchange="toggleAwarenessChecklist(this)"><span><b>Use unique passwords</b><small>Do not reuse passwords between services.</small></span></label>
+        <label><input type="checkbox" data-aw-check="updates" onchange="toggleAwarenessChecklist(this)"><span><b>Turn on updates</b><small>Update your operating system, browser and apps.</small></span></label>
+        <label><input type="checkbox" data-aw-check="recovery" onchange="toggleAwarenessChecklist(this)"><span><b>Review recovery options</b><small>Check recovery email, phone and active sessions.</small></span></label>
+        <label><input type="checkbox" data-aw-check="backup" onchange="toggleAwarenessChecklist(this)"><span><b>Protect your backups</b><small>Keep a separate backup of important files.</small></span></label>
+        <label><input type="checkbox" data-aw-check="privacy" onchange="toggleAwarenessChecklist(this)"><span><b>Review privacy settings</b><small>Reduce public personal information and excess permissions.</small></span></label>
+        <label><input type="checkbox" data-aw-check="verify" onchange="toggleAwarenessChecklist(this)"><span><b>Verify unusual requests</b><small>Confirm links, money transfers and code requests independently.</small></span></label>
+      </div>
+      <button class="aw-reset-checklist" onclick="resetAwarenessChecklist()">Reset checklist</button>
+    </section>
+  </div>
+
+  <section class="aw-scenario-section">
+    <div class="aw-scenario-intro"><div class="aw-eyebrow">DECISION LAB / PRACTICE BEFORE IT HAPPENS</div><h3>What would you do?</h3><p>Quick scenarios test judgment, not memorisation. Choose your move and get an explanation.</p></div>
+    <div id="awarenessScenario" class="aw-scenario-card"><div class="aw-scenario-number">FIELD DRILL · 4 SCENARIOS</div><h4>Ready to test your instincts?</h4><p>Face four realistic situations and decide what a careful defender should do.</p><button class="aw-button-primary" onclick="startAwarenessAssessment()">Begin field drill <span>→</span></button></div>
+  </section>
+
+  <div class="aw-response-strip"><div class="aw-response-mark">!</div><div><div class="aw-eyebrow">IF YOU THINK YOU WERE COMPROMISED</div><h3>Respond quickly. Don't hide it.</h3><p>Stop interacting with the suspicious message. From a trusted device, secure the affected account, change any exposed password, revoke unknown sessions, contact the official provider or your IT team, and report the incident. If money is involved, contact your bank using a known official channel immediately.</p></div><button onclick="showPage('friday')">Ask FRIDAY <span>↗</span></button></div>
+  <section class="aw-learning-links" aria-label="Connected cybersecurity training modules">
+    <div class="aw-eyebrow">CONNECTED LEARNING / NEXT ACTION</div>
+    <h3>Turn each lesson into practice.</h3>
+    <p>Move directly from the threat briefing to a hands-on activity. Your quizzes, training games, game scores and checklist results are connected through the main navigation and local leaderboard.</p>
+    <div class="aw-link-grid">
+      <button class="aw-link-card" onclick="startClassificationGame('phish')"><strong>01 · Phishing Decision Game</strong><span>Classify 10 sample messages as Safe or Not Safe, with explanations.</span><em>PLAY PHISHING →</em></button>
+      <button class="aw-link-card" onclick="startClassificationGame('password')"><strong>02 · Password Challenge</strong><span>Decide whether sample passwords are Strong or Not Strong.</span><em>TEST PASSWORDS →</em></button>
+      <button class="aw-link-card" onclick="showPage('password')"><strong>03 · Password Lab</strong><span>Estimate a fictional password's strength and learn how to improve it.</span><em>OPEN LAB →</em></button>
+      <button class="aw-link-card" onclick="showPage('phishing')"><strong>04 · Phishing Detective</strong><span>Scan a suspicious sample for common warning signs.</span><em>SCAN A MESSAGE →</em></button>
+      <button class="aw-link-card" onclick="showPage('quiz')"><strong>05 · Cybersecurity Quiz</strong><span>Check your knowledge with a 10–30 question challenge.</span><em>TAKE THE QUIZ →</em></button>
+      <button class="aw-link-card" onclick="startCyber3D()"><strong>06 · Cyber Vault 3D</strong><span>Defend the digital corridor from malware drones and firewall barriers.</span><em>ENTER 3D WORLD →</em></button>
+      <button class="aw-link-card" onclick="startGame('shooter')"><strong>07 · Threat Vector</strong><span>Destroy red threat cores, survive waves and defeat bosses.</span><em>START DEFENSE →</em></button>
+      <button class="aw-link-card" onclick="startGame('neon')"><strong>08 · Neon Breach</strong><span>Pilot through hostile space, collect upgrades and fight bosses.</span><em>LAUNCH MISSION →</em></button>
+      <button class="aw-link-card" onclick="showPage('friday')"><strong>09 · FRIDAY the Cyber Man</strong><span>Ask the built-in cybersecurity helper about safe online behavior.</span><em>ASK FRIDAY →</em></button>
+      <button class="aw-link-card" onclick="showPage('scores')"><strong>10 · Defender Record</strong><span>Review saved personal bests from games, quizzes and field drills.</span><em>VIEW RESULTS →</em></button>
+      <button class="aw-link-card" onclick="showPage('home')"><strong>11 · Command Center</strong><span>Return to your mission hub and launch any training activity.</span><em>OPEN DASHBOARD →</em></button>
+    </div>
+  </section>
+  <div class="aw-footer-note">CYBER AWARENESS IS A HABIT · Verify first. Share less. Update often. Report early.</div>
+</section>
+
+<section id="password" class="page">
+<h2>Password Lab</h2>
+<div class="card">
+<p>Enter a sample password to estimate its strength. Do not enter a password you actually use.</p>
+<label>Sample password</label><input id="pw" type="password" placeholder="Try a fictional password">
+<button onclick="togglePassword()">Show / Hide</button>
+<button class="primary" onclick="checkPassword()">Analyze Strength</button>
+<div class="progress"><span id="pwBar"></span></div>
+<h3 id="pwResult">Awaiting input...</h3><p id="pwAdvice" class="muted"></p>
+</div>
+</section>
+
+<section id="phishing" class="page">
+<h2>Phishing Detective</h2>
+<div class="card">
+<p>Paste a suspicious message to identify warning signs. This is a basic local heuristic, not a guarantee that a message is safe or malicious.</p>
+<label>Message or email text</label><textarea id="phishText" rows="6" placeholder="Paste a fictional example here..."></textarea>
+<button class="primary" onclick="analyzePhishing()">Scan Message</button>
+<button onclick="document.getElementById('phishText').value='URGENT! Your account will be suspended. Verify your password now at http://example.invalid/login and claim your prize!'">Load sample</button>
+<div id="phishResult"></div>
+<div class="page-links"><button onclick="startClassificationGame('phish')">Play Safe / Not Safe Game →</button><button onclick="startAwarenessAssessment();showPage('learn')">Practice Field Drill →</button><button onclick="showPage('learn')">Back to Cyber Awareness</button></div>
+</div>
+</section>
+
+<section id="phishGame" class="page">
+<h2>🎣 PHISHING CHALLENGE: SAFE OR NOT SAFE?</h2>
+<div class="card">
+<p>Read each fictional message and choose <b>Safe</b> or <b>Not Safe</b>. Look for urgency, suspicious links, requests for passwords or codes, and unexpected prizes. A “Safe” answer means no obvious warning signs are shown in this example; always verify real messages independently.</p>
+<div id="phishGameArea"><p class="muted">You will classify 10 messages. Try to get all 10 right!</p><button class="primary" onclick="startClassificationGame('phish')">Start Phishing Game</button></div>
+</div>
+</section>
+
+<section id="passwordGame" class="page">
+<h2>🔐 PASSWORD CHALLENGE: STRONG OR NOT STRONG?</h2>
+<div class="card">
+<p>Each item is a fictional sample password. Decide whether it is a <b>Strong Password</b> or a <b>Not Strong Password</b>. Longer, unique passphrases are generally better than short, common, or predictable passwords. Do not use these public examples as your own passwords.</p>
+<div id="passwordGameArea"><p class="muted">You will classify 10 sample passwords. Try to get all 10 right!</p><button class="primary" onclick="startClassificationGame('password')">Start Password Game</button></div>
+</div>
+</section>
+
+<section id="quiz" class="page">
+<h2>Cybersecurity Challenge</h2>
+<div class="card">
+<label>Number of questions</label>
+<select id="quizCount"><option>10</option><option>15</option><option>20</option><option>30</option></select>
+<button class="primary" onclick="beginQuiz()">Start / Restart Quiz</button>
+<div id="quizArea"><p class="muted">Choose a question count and begin.</p></div>
+</div>
+</section>
+
+<section id="shooter" class="page">
+<h2>💀 THREAT VECTOR: CORE DEFENSE</h2>
+<p class="muted">Move your mouse or finger to aim. Hold the fire button or press Space. Destroy the red threat cores and bosses. This is an arcade simulation, not real security monitoring.</p>
+<div class="gamebar">
+<div class="stat">Score: <b id="shScore">0</b></div>
+<div class="stat">Lives: <b id="shLives">3</b></div>
+<div class="stat">Wave: <b id="shWave">1</b></div>
+<div class="stat">Boss HP: <b id="shBoss">—</b></div>
+</div>
+<canvas id="shCanvas" width="850" height="430"></canvas>
+<div class="gamebar">
+<button class="primary" onclick="startGame('shooter')">Start / Restart</button>
+<button onclick="pauseGame()">Pause / Resume</button>
+<button id="shFire" onpointerdown="fireHeld=true;fireShot()" onpointerup="fireHeld=false" onpointerleave="fireHeld=false">🔵 Hold to Fire</button>
+<button onclick="showPage('home')">Exit Game</button>
+</div>
+<p id="shStatus" class="muted">Ready for deployment.</p>
+</section>
+
+<section id="neon" class="page">
+<h2>🚀 NEON BREACH: APOCALYPSE PROTOCOL</h2>
+<p class="muted">Pilot the ship through hostile space. Move with your mouse or finger, hold fire, collect green power-ups and survive the boss waves.</p>
+<div class="gamebar">
+<div class="stat">Score: <b id="neScore">0</b></div>
+<div class="stat">Hull: <b id="neLives">3</b></div>
+<div class="stat">Wave: <b id="neWave">1</b></div>
+<div class="stat">Weapon: <b id="nePower">1</b></div>
+</div>
+<canvas id="neCanvas" width="850" height="430"></canvas>
+<div class="gamebar">
+<button class="primary" onclick="startGame('neon')">Launch / Restart</button>
+<button onclick="pauseGame()">Pause / Resume</button>
+<button id="neFire" onpointerdown="fireHeld=true;fireShot()" onpointerup="fireHeld=false" onpointerleave="fireHeld=false">🔷 Hold to Fire</button>
+<button onclick="showPage('home')">Exit Game</button>
+</div>
+<p id="neStatus" class="muted">Mission ready. Prepare for launch.</p>
+</section>
+
+
+<section id="cyber3d" class="page">
+<h2>🛡️ 3D CYBER VAULT: ZERO-DAY RUN</h2>
+<p class="muted">A 3D cybersecurity runner-shooter. Use ← / → or A / D to change lanes, hold Space to fire, shoot red malware drones, dodge orange firewall barriers, and collect green data cores.</p>
+<div class="gamebar">
+<div class="stat">Score: <b id="d3Score">0</b></div>
+<div class="stat">Integrity: <b id="d3Lives">3</b></div>
+<div class="stat">Level: <b id="d3Level">1</b></div>
+<div class="stat">Data cores: <b id="d3Cores">0</b></div>
+</div>
+<div id="threeStage">
+<canvas id="threeCanvas" aria-label="Three-dimensional Cyber Vault game"></canvas>
+<div id="threeOverlay"><div class="overlay-card"><h3 id="threeOverlayTitle">CYBER VAULT</h3><p id="threeOverlayText">Blast malware drones. Dodge barriers. Collect green data cores.</p><button class="primary" id="threeOverlayButton" onclick="startCyber3D()">Start Mission</button></div></div>
+</div>
+<div class="gamebar d3-controls">
+<button class="primary" onclick="startCyber3D()">Start / Restart</button>
+<button onclick="pauseCyber3D()">Pause / Resume</button>
+<button onpointerdown="setD3Fire(true,event)" onpointerup="setD3Fire(false)" onpointerleave="setD3Fire(false)" onpointercancel="setD3Fire(false)">🔵 Hold Fire</button>
+<button onpointerdown="moveD3Lane(-1,event)">◀ Left</button>
+<button onpointerdown="moveD3Lane(1,event)">Right ▶</button>
+<button onclick="exitCyber3D()">Exit Game</button>
+</div>
+<p id="d3Status" class="muted">Mission ready. Press Start / Restart to enter the 3D world.</p>
+</section>
+
+<section id="scores" class="page">
+<h2>🏆 Local Leaderboard</h2>
+<p class="muted">Scores are saved in this browser on this device. They are not shared online.</p>
+<div class="grid">
+<div class="card"><h3>THREAT VECTOR</h3><div class="big" id="bestShooter">0</div><p>Personal best</p></div>
+<div class="card"><h3>NEON BREACH: APOCALYPSE PROTOCOL</h3><div class="big" id="bestNeon">0</div><p>Personal best</p></div>
+<div class="card"><h3>3D CYBER VAULT</h3><div class="big" id="bestCyber3D">0</div><p>Personal best</p></div>
+<div class="card"><h3>Quiz</h3><div class="big" id="bestQuiz2">0</div><p>Best percentage</p></div>
+<div class="card"><h3>Phishing Game</h3><div class="big" id="bestPhishGame">0%</div><p>Best round</p></div>
+<div class="card"><h3>Password Game</h3><div class="big" id="bestPasswordGame">0%</div><p>Best round</p></div>
+<div class="card"><h3>Cyber Awareness Field Drill</h3><div class="big" id="bestAwarenessDrill">0%</div><p>Best score</p></div>
+</div>
+<h3>Recent local results</h3><div id="scoreHistory"></div>
+<button class="danger" onclick="resetScores()">Reset local scores</button>
+</section>
+
+<section id="friday" class="page">
+<h2>🤖 FRIDAY the Cyber Man</h2>
+<div class="card">
+<p class="muted">FRIDAY the Cyber Man is your built-in rule-based cybersecurity helper. It doesn't connect to an external AI service or send your messages anywhere.</p>
+<div id="chatLog"><div class="message bot"><b>FRIDAY the Cyber Man:</b> Hello, defender. Ask me about phishing, passwords, malware, privacy or online safety.</div></div>
+<form id="chatForm"><input id="chatInput" placeholder="Ask FRIDAY the Cyber Man a cybersecurity question..." autocomplete="off"><button class="primary" type="submit">Send</button></form>
+<div class="gamebar"><button onclick="askExample('How do I spot phishing?')">Phishing</button><button onclick="askExample('How do I create strong passwords?')">Passwords</button><button onclick="askExample('What is malware?')">Malware</button><button onclick="askExample('How can I protect my privacy?')">Privacy</button></div>
+</div>
+</section>
+</main>
+<footer>CYBER BLASTERS — Educational project built with HTML, CSS and JavaScript.</footer>
+<div id="toast"></div>
+
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" onerror="window._cyber3DLibraryFailed=true"></script>
+<script>
+"use strict";
+
+// ---------- Utilities and local storage ----------
+const $ = id => document.getElementById(id);
+const store = {
+ get(k,d){try{const v=localStorage.getItem("friday_"+k);return v===null?d:JSON.parse(v)}catch{return d}},
+ set(k,v){try{localStorage.setItem("friday_"+k,JSON.stringify(v))}catch{}}
+};
+let soundOn=true, audioCtx=null, activityItems=[];
+function log(msg){activityItems.unshift(new Date().toLocaleTimeString()+" — "+msg);activityItems=activityItems.slice(0,6);$("activity").innerHTML=activityItems.map(x=>escapeHTML(x)).join("<br>");}
+function escapeHTML(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function toast(msg){const t=$("toast");t.textContent=msg;t.style.display="block";clearTimeout(toast.timer);toast.timer=setTimeout(()=>t.style.display="none",2100);}
+function beep(freq=500,duration=.07,type="sine",volume=.035){
+ if(!soundOn)return;
+ try{audioCtx ||= new(window.AudioContext||window.webkitAudioContext)();const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type=type;o.frequency.value=freq;g.gain.value=volume;o.connect(g);g.connect(audioCtx.destination);o.start();g.gain.exponentialRampToValueAtTime(.001,audioCtx.currentTime+duration);o.stop(audioCtx.currentTime+duration)}catch{}
+}
+function toggleSound(){soundOn=!soundOn;$("soundBtn").textContent=soundOn?"🔊 Sound ON":"🔇 Sound OFF";if(soundOn)beep();}
+function showPage(id){
+  const destination = document.getElementById(id);
+  if (!destination || !destination.classList.contains("page")) return;
+  // Stop the 3D animation loop when leaving its page.
+  if (id !== "cyber3d" && window._stopCyber3D) window._stopCyber3D();
+  // Pause either 2D game when navigating away; starting it again resets the mission.
+  if (game && game.mode !== id){
+    game.paused = true;
+    fireHeld = false;
+    Object.keys(moveKeys).forEach(key=>moveKeys[key]=false);
+    cancelAnimationFrame(raf);
+  }
+  document.body.classList.toggle("playing-game", id === "shooter" || id === "neon" || id === "cyber3d");
+  document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===id));
+  if(id==="scores")renderScores();
+  if(id==="home")renderHome();
+  window.scrollTo({top:0,behavior:"instant"});
+}
+function startGame(which){showPage(which);gameStart(which);}
+function updateClock(){$("clock").textContent=new Date().toLocaleString();}
+setInterval(updateClock,1000);updateClock();
+
+// ---------- Cyber Awareness: threat library, readiness checklist, scenario drill ----------
+let awarenessFilter = 'all';
+let awarenessScenarioState = {index:0,score:0,answered:false};
+const awarenessScenarios = [
+  {title:'An urgent payment request',text:'Your manager messages from an unfamiliar number: “I am in a meeting. Buy gift cards now and send me the codes. Keep this quiet.” What is the best move?',choices:['Buy them because the request uses your manager’s name.','Call your manager using a known number or verify through the official work channel first.','Reply asking which gift-card brand they want.'],correct:1,why:'Urgency, secrecy, an unfamiliar number and an unusual payment method are classic impersonation signals. Verify independently before acting.'},
+  {title:'An unexpected MFA prompt',text:'You are not signing in, but several approval prompts appear on your phone. What should you do?',choices:['Approve one so the prompts stop.','Share the code with someone claiming to be IT.','Reject the prompts, do not share a code, and report the activity.'],correct:2,why:'Approve only sign-ins you initiated. Repeated prompts may indicate someone has your password and is trying to get past MFA.'},
+  {title:'A QR code at a payment point',text:'A QR sticker on a parking sign directs you to an unfamiliar page that asks you to sign in and enter card details. What is safest?',choices:['Use the official parking app or verify the payment instructions with the operator.','Proceed because a QR code is just an image.','Enter your normal account password to see whether it works.'],correct:0,why:'QR codes can hide their destination. Verify the source and use a known official app or website instead of entering sensitive details on an unexpected page.'},
+  {title:'You entered a password on a suspicious page',text:'You realise a login page was fake after you entered a password. What should happen first?',choices:['Wait to see whether anything happens.','From a trusted device, change that password on the real site, secure sessions, and report it.','Forward the link to friends to ask if it is real.'],correct:1,why:'Act quickly through the genuine service. Change any exposed password, change it anywhere else it was reused, sign out unknown sessions, enable MFA and contact official support if needed.'}
+];
+
+function setAwarenessFilter(category){
+  awarenessFilter=category;
+  document.querySelectorAll('[data-aw-filter]').forEach(button=>{
+    const active=button.dataset.awFilter===category;
+    button.classList.toggle('aw-filter-active',active);
+    button.setAttribute('aria-pressed',active?'true':'false');
+  });
+  filterAwarenessCards();
+}
+function filterAwarenessCards(){
+  const query=($('awarenessSearch')?.value||'').trim().toLowerCase();
+  const cards=[...document.querySelectorAll('.aw-threat-card')];
+  let visible=0;
+  cards.forEach(card=>{
+    const categoryMatch=awarenessFilter==='all'||card.dataset.category===awarenessFilter;
+    const textMatch=!query||card.textContent.toLowerCase().includes(query);
+    const show=categoryMatch&&textMatch;
+    card.hidden=!show;
+    if(show)visible++;
+  });
+  $('awarenessThreatCount').textContent=visible+' / '+cards.length+' threat briefings';
+  $('awarenessNoResults').hidden=visible!==0;
+}
+function currentAwarenessChecklist(){
+  const state={};
+  document.querySelectorAll('[data-aw-check]').forEach(box=>{state[box.dataset.awCheck]=box.checked;});
+  return state;
+}
+function refreshAwarenessChecklist(){
+  const items=[...document.querySelectorAll('[data-aw-check]')];
+  const checked=items.filter(box=>box.checked).length;
+  const percent=items.length?Math.round(checked/items.length*100):0;
+  $('awarenessReadiness').textContent=percent+'%';
+  $('awarenessChecklistCount').textContent=checked+' / '+items.length+' complete';
+  $('awarenessChecklistBar').style.width=percent+'%';
+  $('awarenessReadinessDial').style.setProperty('--aw-deg',(percent*3.6)+'deg');
+  $('awarenessReadinessTitle').textContent=percent===100?'Baseline established':percent>=70?'Strong foundations':percent>=35?'Building good habits':'Build your baseline';
+  $('awarenessReadinessText').textContent=percent===100?'All checklist controls are marked complete. Review them regularly and keep your recovery plan current.':(items.length-checked)+' control'+(items.length-checked===1?' remains':'s remain')+' to review. Check each item only after you have verified it.';
+}
+function toggleAwarenessChecklist(box){
+  store.set('awarenessChecklist',currentAwarenessChecklist());
+  refreshAwarenessChecklist();
+}
+function loadAwarenessChecklist(){
+  const saved=store.get('awarenessChecklist',{});
+  document.querySelectorAll('[data-aw-check]').forEach(box=>{box.checked=!!saved[box.dataset.awCheck];});
+  refreshAwarenessChecklist();
+}
+function resetAwarenessChecklist(){
+  if(!confirm('Reset your local Cyber Awareness checklist?'))return;
+  document.querySelectorAll('[data-aw-check]').forEach(box=>{box.checked=false;});
+  store.set('awarenessChecklist',currentAwarenessChecklist());
+  refreshAwarenessChecklist();
+}
+function startAwarenessAssessment(){
+  awarenessScenarioState={index:0,score:0,answered:false};
+  renderAwarenessScenario();
+  document.getElementById('awarenessScenario').scrollIntoView({behavior:'smooth',block:'center'});
+}
+function renderAwarenessScenario(){
+  const root=$('awarenessScenario');
+  const state=awarenessScenarioState;
+  if(state.index>=awarenessScenarios.length){
+    const percent=Math.round(state.score/awarenessScenarios.length*100);
+    store.set('bestAwarenessDrill',Math.max(store.get('bestAwarenessDrill',0),percent));
+    const history=store.get('history',[]);
+    history.unshift({game:'Cyber Awareness Field Drill',score:state.score+'/'+awarenessScenarios.length+' ('+percent+'%)',date:new Date().toLocaleString()});
+    store.set('history',history.slice(0,20));
+    root.innerHTML='<div class="aw-scenario-number">FIELD DRILL COMPLETE</div><h4>'+state.score+' / '+awarenessScenarios.length+' correct · '+percent+'%</h4><p>'+(percent===100?'Excellent judgment. You consistently paused and verified.':percent>=75?'Good instincts. Review the explanations and reinforce the habit of verifying independently.':'Practice makes better decisions. Review each explanation, then run the drill again.')+'</p><div class="result-actions"><button class="aw-button-primary" onclick="startAwarenessAssessment()">Run again ↻</button><button onclick="startClassificationGame(\'phish\')">More phishing practice →</button><button onclick="startClassificationGame(\'password\')">Password Game →</button><button onclick="showPage(\'scores\')">View results →</button></div>';
+    renderHome();renderScores();
+    log('Cyber Awareness field drill completed: '+percent+'%.');
+    return;
+  }
+  const item=awarenessScenarios[state.index];
+  root.innerHTML='<div class="aw-scenario-number">SCENARIO '+String(state.index+1).padStart(2,'0')+' / '+awarenessScenarios.length+' &nbsp; · &nbsp; SCORE '+state.score+'</div><h4>'+escapeHTML(item.title)+'</h4><p>'+escapeHTML(item.text)+'</p><div class="aw-scenario-choices">'+item.choices.map((choice,index)=>'<button onclick="answerAwarenessScenario('+index+')">'+String.fromCharCode(65+index)+'. '+escapeHTML(choice)+'</button>').join('')+'</div><div id="awarenessScenarioFeedback" aria-live="polite"></div><button id="awarenessScenarioNext" class="aw-button-primary" style="display:none;margin-top:12px" onclick="nextAwarenessScenario()">Next scenario →</button>';
+  state.answered=false;
+}
+function answerAwarenessScenario(choiceIndex){
+  const state=awarenessScenarioState;
+  if(state.answered)return;
+  state.answered=true;
+  const item=awarenessScenarios[state.index];
+  const correct=choiceIndex===item.correct;
+  if(correct)state.score++;
+  const choices=document.querySelectorAll('#awarenessScenario .aw-scenario-choices button');
+  choices.forEach((button,index)=>{
+    button.disabled=true;
+    if(index===item.correct)button.classList.add('aw-choice-correct');
+    else if(index===choiceIndex)button.classList.add('aw-choice-wrong');
+  });
+  const feedback=$('awarenessScenarioFeedback');
+  feedback.className='aw-scenario-feedback '+(correct?'is-correct':'is-wrong');
+  feedback.textContent=(correct?'Correct call. ':'Not the safest move. ')+item.why;
+  $('awarenessScenarioNext').style.display='inline-block';
+  beep(correct?760:260);
+}
+function nextAwarenessScenario(){
+  if(!awarenessScenarioState.answered)return;
+  awarenessScenarioState.index++;
+  renderAwarenessScenario();
+}
+$('awarenessSearch').addEventListener('input',filterAwarenessCards);
+loadAwarenessChecklist();
+filterAwarenessCards();
+
+// ---------- Password lab ----------
+function togglePassword(){const e=$("pw");e.type=e.type==="password"?"text":"password";}
+function checkPassword(){
+ const p=$("pw").value;
+ if(!p){$("pwResult").textContent="Enter a sample password first.";return;}
+ let score=0;
+ if(p.length>=12)score++;if(p.length>=16)score++;
+ if(/[a-z]/.test(p)&&/[A-Z]/.test(p))score++;
+ if(/\d/.test(p))score++;if(/[^A-Za-z0-9]/.test(p))score++;
+ const labels=["Very weak","Weak","Fair","Good","Strong","Very strong"];
+ $("pwResult").textContent=labels[score];
+ $("pwBar").style.width=(score/5*100)+"%";
+ $("pwBar").style.background=score<2?"#ff3864":score<4?"#ffc857":"#52ffae";
+ $("pwAdvice").textContent=(p.length<12?"Use at least 12–16 characters. ":"")+
+ (!(/[a-z]/.test(p)&&/[A-Z]/.test(p))?"Mix letter cases where appropriate. ":"")+
+ (!/\d/.test(p)?"Consider including numbers. ":"")+
+ (!/[^A-Za-z0-9]/.test(p)?"Consider including symbols. ":"")+
+ "Length and uniqueness matter most. Use a unique password and a password manager.";
+ log("Password strength check performed (password itself is not saved).");beep(420);
+}
+
+// ---------- Phishing detective ----------
+function analyzePhishing(){
+ const text=$("phishText").value.trim();if(!text){$("phishResult").textContent="Paste a message to inspect.";return;}
+ const checks=[
+  ["Urgency or threats",/urgent|immediately|suspend|suspended|expire|final warning|act now|within \d+/i],
+  ["Requests for sensitive information",/password|passcode|one.time code|otp|credit card|bank details|verify your account/i],
+  ["Prize or unexpected reward",/winner|prize|claim|free gift|lottery|reward/i],
+  ["Suspicious links or insecure protocol",/http:\/\/|bit\.ly|tinyurl|shorturl|example\.invalid/i],
+  ["Impersonation or authority pressure",/support team|administrator|security team|ceo|police|tax department/i],
+  ["Unexpected attachment",/open the attachment|enable macros|download attached/i]
+ ];
+ const found=checks.filter(c=>c[1].test(text)).map(c=>c[0]);
+ $("phishResult").innerHTML='<div class="card"><h3 style="color:'+(found.length?'#ff7894':'#52ffae')+'">'+(found.length?"⚠ Warning signs detected":"No obvious signs detected")+'</h3><p>'+found.length+" warning sign(s) found.</p>"+(found.length?"<ul>"+found.map(x=>"<li>"+escapeHTML(x)+"</li>").join("")+"</ul>":"<p>Still verify the sender and destination independently. A clean scan does not prove a message is legitimate.</p>")+'</div>';
+ log("Phishing message analyzed locally.");beep(found.length?250:600);
+}
+
+// ---------- Quick classification games: phishing and password strength ----------
+const phishingGameQuestions = [
+ {prompt:"A text says: ‘URGENT! Your bank account will be locked in 10 minutes. Reply with your PIN and one-time code.’",safe:false,explanation:"Not safe: a bank should not ask you to send your PIN or one-time code by message, and the urgent threat is a red flag."},
+ {prompt:"You receive the weekly school newsletter from the school's usual verified address. It contains the upcoming event timetable and asks for no private details.",safe:true,explanation:"Safe in this example: it is an expected message from the usual address and does not request sensitive information. Still check the sender if anything seems unusual."},
+ {prompt:"A message says you won a free phone, but you must pay a fee through a shortened link immediately to claim it.",safe:false,explanation:"Not safe: unexpected prizes, payment pressure and shortened links are common warning signs."},
+ {prompt:"You were expecting a parcel. Its delivery status is visible when you open the courier company's official app directly.",safe:true,explanation:"Safe in this example: you independently opened the official app and checked an expected delivery, rather than trusting an unsolicited link."},
+ {prompt:"Someone claiming to be IT sends an unexpected ZIP attachment and tells you to disable antivirus before opening it.",safe:false,explanation:"Not safe: unexpected attachments and requests to disable security protection are strong warning signs."},
+ {prompt:"A classmate sends an ordinary message in your usual school chat: ‘Are we still meeting at the library at 4?’ It includes no link or request for private information.",safe:true,explanation:"Safe in this example: the routine message has no obvious phishing signs. If the sender or context feels unusual, verify with them separately."},
+ {prompt:"A message claims your email password expires today and asks you to sign in through an unfamiliar link to keep your account open.",safe:false,explanation:"Not safe: unexpected account threats and unfamiliar sign-in links can be used to steal credentials. Open the service directly instead."},
+ {prompt:"You just bought a subscription. The receipt appears inside the service's official app and matches your purchase.",safe:true,explanation:"Safe in this example: the receipt appears in the official app and matches a transaction you recognize."},
+ {prompt:"A gaming account offers free coins if you enter your account password on a separate website.",safe:false,explanation:"Not safe: never give your password to a third-party site to claim a prize or reward."},
+ {prompt:"A message claiming to be from a delivery company comes from a misspelled sender address and asks for your card PIN to release a parcel.",safe:false,explanation:"Not safe: a misspelled sender and a request for a card PIN are major warning signs."}
+];
+
+const passwordGameQuestions = [
+ {sample:"password123",strong:false,explanation:"Not strong: it uses a common word and a predictable number sequence."},
+ {sample:"R8!mQ4#vT9@pL2",strong:true,explanation:"Strong example: it is long and difficult to guess. In real life, generate a unique password with a password manager."},
+ {sample:"Sunshine2026!",strong:false,explanation:"Not strong: a common word plus a current year and a symbol is predictable."},
+ {sample:"river-cactus-planet-lantern-48",strong:true,explanation:"Strong example: a long passphrase with several unrelated words and an extra element is easier to remember and harder to guess."},
+ {sample:"Qwerty!234",strong:false,explanation:"Not strong: keyboard patterns and common substitutions are easy to guess."},
+ {sample:"f4$Tz9@Lp2#Rb7",strong:true,explanation:"Strong example: it is long and does not use an obvious word or sequence. Make sure any password you create is unique."},
+ {sample:"Alex123",strong:false,explanation:"Not strong: a name followed by a short number sequence is short and predictable."},
+ {sample:"velvet-comet-maple-bridge-73",strong:true,explanation:"Strong example: this is a long multiword passphrase with an additional element. A password manager can generate and store unique passwords."},
+ {sample:"1234567890",strong:false,explanation:"Not strong: number sequences are among the easiest passwords to guess."},
+ {sample:"P@ssw0rd!",strong:false,explanation:"Not strong: simple substitutions of a common password are widely known and predictable."}
+];
+
+const classificationStates = {phish:null,password:null};
+
+function startClassificationGame(type) {
+  if (type !== "phish" && type !== "password") return;
+  const source = type === "phish" ? phishingGameQuestions : passwordGameQuestions;
+  const questions = [...source].sort(() => Math.random() - 0.5);
+  classificationStates[type] = {questions,index:0,score:0,answered:false};
+  showPage(type === "phish" ? "phishGame" : "passwordGame");
+  renderClassificationQuestion(type);
+  log(type === "phish" ? "Started Phishing: Safe or Not Safe?" : "Started Password: Strong or Not Strong?");
+}
+
+function renderClassificationQuestion(type) {
+  const state = classificationStates[type];
+  const area = $(type === "phish" ? "phishGameArea" : "passwordGameArea");
+  if (!state || !area) return;
+  const total = state.questions.length;
+
+  if (state.index >= total) {
+    const percent = Math.round(state.score / total * 100);
+    const key = type === "phish" ? "bestPhishGame" : "bestPasswordGame";
+    store.set(key, Math.max(store.get(key, 0), percent));
+    const history = store.get("history", []);
+    history.unshift({
+      game: type === "phish" ? "Phishing Game: Safe or Not Safe" : "Password Game: Strong or Not Strong",
+      score: state.score + "/" + total + " (" + percent + "%)",
+      date: new Date().toLocaleString()
+    });
+    store.set("history", history.slice(0, 20));
+    renderScores();
+    area.innerHTML = `<div class="card"><h3>Round complete!</h3><div class="big">${state.score} / ${total}</div><p>You scored ${percent}%.</p><p class="muted">${percent === 100 ? "Perfect score! Excellent work, Cyber Defender." : percent >= 70 ? "Great job! Review the explanations and try for a perfect score." : "Good practice. Read each explanation and try again to improve your score."}</p><div class="result-actions"><button class="primary" onclick="startClassificationGame('${type}')">Play Again</button><button onclick="showPage('learn')">Review Cyber Awareness</button><button onclick="showPage('quiz')">Take Cyber Quiz</button><button onclick="showPage('scores')">View Leaderboard</button><button onclick="showPage('home')">Command Center</button></div></div>`;
+    log((type === "phish" ? "Phishing" : "Password") + " game completed: " + percent + "%." );
+    beep(percent >= 70 ? 740 : 320);
+    return;
+  }
+
+  const item = state.questions[state.index];
+  const prompt = type === "phish" ? item.prompt : item.sample;
+  const label = type === "phish" ? "Message to evaluate" : "Fictional sample password";
+  const progress = Math.round(state.index / total * 100);
+  const choices = type === "phish"
+    ? `<button class="answer" onclick="answerClassification('phish',true)">✅ Safe</button><button class="answer" onclick="answerClassification('phish',false)">🚨 Not Safe</button>`
+    : `<button class="answer" onclick="answerClassification('password',true)">💪 Strong Password</button><button class="answer" onclick="answerClassification('password',false)">⚠️ Not Strong Password</button>`;
+
+  area.innerHTML = `<p>Question ${state.index + 1} of ${total} · Score: ${state.score}</p>
+    <div class="progress"><span style="width:${progress}%"></span></div>
+    <div class="card"><h3>${label}</h3><div class="classification-prompt">${escapeHTML(prompt)}</div></div>
+    <div id="classificationChoices">${choices}</div>
+    <div id="classificationFeedback" aria-live="polite"></div>
+    <button id="classificationNext" class="primary" style="display:none" onclick="nextClassificationQuestion('${type}')">Next Question →</button>`;
+  state.answered = false;
+}
+
+function answerClassification(type, answer) {
+  const state = classificationStates[type];
+  if (!state || state.answered) return;
+  state.answered = true;
+  const item = state.questions[state.index];
+  const expected = type === "phish" ? item.safe : item.strong;
+  const correct = answer === expected;
+  if (correct) state.score++;
+
+  document.querySelectorAll("#classificationChoices button").forEach(button => button.disabled = true);
+  const feedback = $("classificationFeedback");
+  feedback.className = "card " + (correct ? "correct-feedback" : "wrong-feedback");
+  feedback.innerHTML = `<h3>${correct ? "✅ Correct!" : "❌ Not quite"}</h3><p>${escapeHTML(item.explanation)}</p>`;
+  const choices = $("classificationChoices").querySelectorAll("button");
+  const correctIndex = type === "phish" ? (item.safe ? 0 : 1) : (item.strong ? 0 : 1);
+  if (choices[correctIndex]) choices[correctIndex].classList.add("correct");
+  if (!correct && choices[answer ? 0 : 1]) choices[answer ? 0 : 1].classList.add("wrong");
+  $("classificationNext").style.display = "inline-block";
+  beep(correct ? 700 : 250);
+}
+
+function nextClassificationQuestion(type) {
+  const state = classificationStates[type];
+  if (!state || !state.answered) return;
+  state.index++;
+  renderClassificationQuestion(type);
+}
+
+// ---------- Cyber quiz ----------
+const questions=[
+ {q:"What is phishing?",a:["A way to cool a computer","A trick to steal information using deceptive messages","A type of monitor","A backup method"],c:1,e:"Phishing uses deceptive communications to steal data or deliver malware."},
+ {q:"Which password is generally strongest?",a:["password123","amit2026","Blue!River7-Copper?Moon","12345678"],c:2,e:"Long, unique passwords or passphrases are harder to guess."},
+ {q:"What should you do with an unexpected login link?",a:["Click immediately","Forward it to everyone","Visit the official site independently","Enter your password to check"],c:2,e:"Navigate directly to the official website instead of trusting the link."},
+ {q:"What does MFA add?",a:["Another verification factor","A shorter password","Public access","More advertisements"],c:0,e:"Multifactor authentication adds a separate proof of identity."},
+ {q:"What is malware?",a:["A safe browser","Software designed to cause harm or unwanted actions","A firewall rule","A keyboard layout"],c:1,e:"Malware includes viruses, spyware, ransomware and other malicious programs."},
+ {q:"What is a safe response to a one-time code request from a stranger?",a:["Share it quickly","Post it publicly","Do not share it","Email it to them"],c:2,e:"Never share login verification codes with another person."},
+ {q:"Why install security updates?",a:["To fix bugs and vulnerabilities","To remove every password","To make phishing impossible","To disable backups"],c:0,e:"Updates often patch known security vulnerabilities."},
+ {q:"What is social engineering?",a:["Computer hardware design","Manipulating people into unsafe actions","A backup process","A type of encryption"],c:1,e:"Social engineering exploits trust, fear, urgency or curiosity."},
+ {q:"What should you do if an account may be compromised?",a:["Ignore it","Reuse the same password elsewhere","Use a trusted device to change credentials and enable MFA","Tell the suspected attacker your details"],c:2,e:"Secure the account, review sessions, enable MFA and contact official support."},
+ {q:"Which is safer on public Wi-Fi?",a:["Use any unknown login page","Disable all updates","Avoid sensitive activity on untrusted networks and use HTTPS","Share files with everyone"],c:2,e:"Verify the network and site; HTTPS protects data in transit but does not make every site trustworthy."},
+ {q:"What does a firewall do?",a:["Filters network traffic according to rules","Guarantees no attack succeeds","Creates all passwords","Deletes all spam"],c:0,e:"Firewalls control network connections; they are one layer of defense."},
+ {q:"What is ransomware?",a:["A photo editor","Malware that can encrypt or lock data for payment","A password manager","A safe email protocol"],c:1,e:"Ransomware may lock or encrypt files and demand payment."},
+ {q:"Why keep backups?",a:["To recover data after loss or attack","To share passwords","To stop all spam","To make software obsolete"],c:0,e:"Maintain protected backups and periodically test restoration."},
+ {q:"What is a digital footprint?",a:["A device's shoe size","The traces of activity you leave online","An antivirus scan","A Wi-Fi password"],c:1,e:"Posts, comments, accounts and browsing activity can leave digital traces."},
+ {q:"What should you do with an unknown USB drive?",a:["Plug it into your main computer","Give it administrator access","Avoid plugging it in and follow safe organizational procedures","Copy all files immediately"],c:2,e:"Unknown removable media can contain malware."},
+ {q:"Which is a safer download practice?",a:["Download from official trusted sources","Use every pop-up download","Disable security warnings","Run unknown files as administrator"],c:0,e:"Use official sources and check permissions before installing."},
+ {q:"What is spyware designed to do?",a:["Improve battery life","Secretly collect information","Repair every file","Block all websites"],c:1,e:"Spyware may monitor activity or collect private information."},
+ {q:"What is a keylogger?",a:["A keyboard cleaning tool","A tool that records keystrokes","A network cable","A screen protector"],c:1,e:"Malicious keyloggers can capture typed information such as passwords."},
+ {q:"How should you handle cyberbullying?",a:["Retaliate and escalate","Share private details publicly","Save evidence, block/report, and seek trusted help","Give the bully your password"],c:2,e:"Preserve evidence, report the abuse and get support."},
+ {q:"What is encryption?",a:["Making data unreadable without the proper key","Deleting every file","Making a password public","A type of phishing"],c:0,e:"Encryption protects confidentiality by transforming data using cryptographic keys."},
+ {q:"Which information should not be posted publicly?",a:["A public weather forecast","Your home address and private account details","A public library opening time","A public science fact"],c:1,e:"Avoid publicly sharing sensitive personal information."},
+ {q:"What is a secure way to manage many unique passwords?",a:["Write one password on a public board","Reuse one password everywhere","Use a reputable password manager","Make every password '123456'"],c:2,e:"A password manager helps create and store unique credentials."},
+ {q:"Does a padlock icon guarantee a website is honest?",a:["Yes, always","No, it mainly indicates an encrypted connection","It guarantees no malware","It proves a shop is real"],c:1,e:"HTTPS protects the connection but a malicious site can also use HTTPS."},
+ {q:"What is a software vulnerability?",a:["A weakness that may be exploited","A new desktop wallpaper","A strong password","A backup drive"],c:0,e:"Vulnerabilities can allow unintended access or behavior."},
+ {q:"What is the safest way to verify a bank message?",a:["Call the number in the suspicious message","Reply with your PIN","Use the official app or contact details from the bank's genuine site","Click every link"],c:2,e:"Use an independently obtained official contact channel."},
+ {q:"What is a botnet?",a:["A network of compromised devices controlled together","A password generator","A secure backup","A type of monitor"],c:0,e:"Botnets can be used for spam, denial-of-service attacks and other abuse."},
+ {q:"Why use least privilege?",a:["Everyone gets administrator access","Users and programs get only the permissions they need","Passwords become optional","All logs are deleted"],c:1,e:"Least privilege reduces the damage if an account or application is compromised."},
+ {q:"What does a security log help with?",a:["Recording events for review and investigation","Guaranteeing no attacks","Hiding all activity","Creating public passwords"],c:0,e:"Logs help detect patterns and investigate incidents."},
+ {q:"What should you do before sharing a news story?",a:["Check credible sources and context","Trust the headline alone","Share immediately if it is shocking","Ignore the date"],c:0,e:"Check source reliability, date, evidence and independent confirmation."},
+ {q:"What is the safest reaction to an unexpected attachment?",a:["Open it immediately","Enable macros if asked","Verify with the sender through a separate channel before opening","Disable antivirus"],c:2,e:"Unexpected attachments can deliver malware; verify before opening."}
+];
+let quizState=null;
+function beginQuiz(){
+ const count=Number($("quizCount").value);
+ const pool=[...questions].sort(()=>Math.random()-.5).slice(0,count);
+ quizState={pool,index:0,correct:0,locked:false};
+ renderQuestion();
+}
+function renderQuestion(){
+ const qz=quizState;if(!qz)return;
+ if(qz.index>=qz.pool.length){
+  const pct=Math.round(qz.correct/qz.pool.length*100);
+  const old=store.get("quizBest",0);store.set("quizBest",Math.max(old,pct));
+  store.set("history",[{game:"Cyber Quiz",score:pct+"%",date:new Date().toLocaleString()},...store.get("history",[])].slice(0,20));
+  $("quizArea").innerHTML='<h3>Challenge complete!</h3><div class="big">'+pct+'%</div><p>You answered '+qz.correct+' of '+qz.pool.length+' correctly.</p><div class="result-actions"><button class="primary" onclick="beginQuiz()">Play again</button><button onclick="startClassificationGame(\'phish\')">Phishing Game</button><button onclick="startClassificationGame(\'password\')">Password Game</button><button onclick="showPage(\'learn\')">Cyber Awareness</button><button onclick="showPage(\'scores\')">View Leaderboard</button></div>';
+  renderHome();renderScores();log("Cyber quiz completed: "+pct+"%.");beep(pct>=70?700:300);return;
+ }
+ const q=qz.pool[qz.index];
+ $("quizArea").innerHTML='<p>Question '+(qz.index+1)+' of '+qz.pool.length+'</p><div class="progress"><span style="width:'+(qz.index/qz.pool.length*100)+'%"></span></div><h3>'+escapeHTML(q.q)+'</h3><div id="answers">'+q.a.map((a,i)=>'<button class="answer" onclick="answerQuiz('+i+')">'+String.fromCharCode(65+i)+'. '+escapeHTML(a)+'</button>').join("")+'</div><p id="quizFeedback" class="muted"></p><button id="nextQ" style="display:none" class="primary" onclick="nextQuestion()">Next Question →</button>';
+ qz.locked=false;
+}
+function answerQuiz(i){
+ if(!quizState||quizState.locked)return;
+ quizState.locked=true;const q=quizState.pool[quizState.index],ok=i===q.c;
+ if(ok)quizState.correct++;
+ document.querySelectorAll("#answers button").forEach((b,j)=>{if(j===q.c)b.classList.add("correct");else if(j===i)b.classList.add("wrong");b.disabled=true});
+ $("quizFeedback").textContent=(ok?"Correct! ":"Not quite. ")+q.e;
+ $("nextQ").style.display="inline-block";beep(ok?650:260);
+}
+function nextQuestion(){quizState.index++;renderQuestion();}
+
+// ---------- FRIDAY chatbot ----------
+const knowledge=[
+ {keys:["phish","email","suspicious link","scam"],answer:"Check the sender address, unexpected urgency, spelling, links and requests for passwords or verification codes. Open the official app or type the known website address yourself. When unsure, verify through another trusted channel."},
+ {keys:["password","passphrase","credential"],answer:"Use a long, unique password for every account. A reputable password manager helps. Enable multifactor authentication and never share one-time codes. Do not reuse your email password on other sites."},
+ {keys:["malware","virus","ransomware","spyware","keylogger"],answer:"Malware is software used for harmful or unwanted activity. Keep devices updated, install software from trusted sources, use reputable security tools, and maintain backups. Don't open unexpected attachments."},
+ {keys:["privacy","footprint","personal information","social media"],answer:"Share less sensitive information publicly, review account privacy settings, limit app permissions, and think before posting. Information posted online can be copied or preserved."},
+ {keys:["wifi","network","public internet"],answer:"Verify the network name, keep your device updated, use HTTPS, and avoid sensitive activity on networks you don't trust. HTTPS protects the connection but doesn't prove a site is legitimate."},
+ {keys:["hack","hacked","compromised","account stolen"],answer:"From a trusted device, change the affected password, secure the email account that can reset it, enable MFA, sign out other sessions and contact the service's official support. Check recovery settings."},
+ {keys:["mfa","two factor","2fa","authentication"],answer:"Multifactor authentication requires an additional proof beyond a password. An authenticator app or security key can reduce the risk of password-only account compromise."},
+ {keys:["firewall","encryption","backup"],answer:"A firewall filters network traffic, encryption protects data using cryptographic keys, and backups help restore data after loss. They solve different problems and work best as layers."},
+ {keys:["cyberbullying","bullying","harassment"],answer:"Don't retaliate. Save evidence, block and report the account, tighten privacy settings, and talk to a trusted adult or appropriate authority if you feel unsafe."}
+];
+function fridayAnswer(text){
+ const t=text.toLowerCase();
+ for(const item of knowledge)if(item.keys.some(k=>t.includes(k)))return item.answer;
+ if(t.includes("hello")||t.includes("hi "))return "Hello, defender! I can help with phishing, passwords, malware, privacy, Wi-Fi safety and account recovery.";
+ if(t.includes("who are you")||t.includes("your name"))return "I'm FRIDAY the Cyber Man, your built-in cybersecurity learning assistant. My answers use a small offline knowledge base, not a live AI connection.";
+ if(t.includes("help")||t.includes("what can"))return "Ask about phishing, strong passwords, malware, privacy, Wi-Fi, MFA, account recovery or cyberbullying.";
+ return "I don't have a specific answer for that yet. I can explain phishing, passwords, malware, privacy, Wi-Fi security, MFA or account recovery. For an active security incident, use the affected service's official support or a qualified security professional.";
+}
+function addChat(who,msg){
+ const d=document.createElement("div");d.className="message "+(who==="You"?"user":"bot");
+ const b=document.createElement("b");b.textContent=who+": ";d.appendChild(b);d.appendChild(document.createTextNode(msg));$("chatLog").appendChild(d);$("chatLog").scrollTop=$("chatLog").scrollHeight;
+}
+$("chatForm").addEventListener("submit",e=>{e.preventDefault();const t=$("chatInput").value.trim();if(!t)return;addChat("You",t);$("chatInput").value="";setTimeout(()=>{addChat("FRIDAY the Cyber Man",fridayAnswer(t));beep(520)},180);});
+function askExample(t){$("chatInput").value=t;$("chatForm").requestSubmit();}
+
+// ---------- Local leaderboard ----------
+function renderHome(){
+ const shooterBest=store.get("bestShooter",0),neonBest=store.get("bestNeon",0),vaultBest=store.get("bestCyber3D",0);
+ $("totalScore").textContent=shooterBest+neonBest+vaultBest;
+ $("bestScore").textContent=Math.max(shooterBest,neonBest,vaultBest);
+ $("quizBest").textContent=store.get("quizBest",0)+"%";
+ const awarenessBest=$("awarenessBestHome");
+ if(awarenessBest)awarenessBest.textContent=store.get("bestAwarenessDrill",0)+"%";
+}
+function renderScores(){
+ $("bestShooter").textContent=store.get("bestShooter",0);
+ $("bestNeon").textContent=store.get("bestNeon",0);
+ $("bestCyber3D").textContent=store.get("bestCyber3D",0);
+ $("bestQuiz2").textContent=store.get("quizBest",0)+"%";
+ $("bestPhishGame").textContent=store.get("bestPhishGame",0)+"%";
+ $("bestPasswordGame").textContent=store.get("bestPasswordGame",0)+"%";
+ $("bestAwarenessDrill").textContent=store.get("bestAwarenessDrill",0)+"%";
+ const h=store.get("history",[]);
+ $("scoreHistory").innerHTML=h.length?h.map(x=>'<div class="card"><b>'+escapeHTML(x.game)+'</b> — '+escapeHTML(x.score)+'<p>'+escapeHTML(x.date)+'</p></div>').join(""):"<p class='muted'>No results recorded yet. Play a game or complete a quiz!</p>";
+}
+function saveGameScore(which,score){
+ const key=which==="neon"?"bestNeon":"bestShooter";
+ store.set(key,Math.max(store.get(key,0),score));
+ const h=store.get("history",[]);
+ h.unshift({game:which==="neon"?"NEON BREACH: APOCALYPSE PROTOCOL":"THREAT VECTOR",score,date:new Date().toLocaleString()});
+ store.set("history",h.slice(0,20));renderHome();renderScores();
+}
+function resetScores(){
+ if(!confirm("Reset all local scores and quiz results?"))return;
+ ["bestShooter","bestNeon","bestCyber3D","quizBest","bestPhishGame","bestPasswordGame","bestAwarenessDrill","history"].forEach(k=>store.set(k,k==="history"?[]:0));
+ renderHome();renderScores();toast("Local results reset.");
+}
+renderHome();renderScores();
+
+// ---------- Arcade engine: two games ----------
+const canvases={shooter:$("shCanvas"),neon:$("neCanvas")};
+const ctxs={shooter:canvases.shooter.getContext("2d"),neon:canvases.neon.getContext("2d")};
+let game=null,raf=0,lastTime=0,fireHeld=false,lastFire=0;
+const pointer={x:425,y:350};
+const moveKeys={up:false,down:false,left:false,right:false};
+function gameStart(mode){
+ cancelAnimationFrame(raf);
+ game={mode,score:0,lives:3,wave:1,frame:0,bullets:[],enemies:[],enemyBullets:[],particles:[],powerups:[],stars:[],player:{x:425,y:365,r:mode==="neon"?15:13,power:1,invuln:0},boss:null,paused:false,over:false,spawn:0};
+ for(let i=0;i<100;i++)game.stars.push({x:Math.random()*850,y:Math.random()*430,s:Math.random()*2+.3,v:Math.random()*1.5+.2});
+ pointer.x=425;pointer.y=365;fireHeld=false;
+ updateGameUI();if(mode==="neon")$("neStatus").textContent="Mission launched. Destroy hostiles and collect upgrades.";else $("shStatus").textContent="Defense active. Survive the incoming threat waves.";
+ log(mode==="neon"?"NEON BREACH: APOCALYPSE PROTOCOL launched.":"THREAT VECTOR launched.");
+ lastTime=performance.now();raf=requestAnimationFrame(loop);
+}
+function pauseGame(){
+  if(!game||game.over)return;
+  game.paused=!game.paused;
+  fireHeld=false;
+  const status=game.paused?"Game paused.":(game.mode==="neon"?"Mission active.":"Defense active.");
+  if(game.mode==="neon")$("neStatus").textContent=status;
+  else $("shStatus").textContent=status;
+  if(game.paused)cancelAnimationFrame(raf);
+  else {lastTime=performance.now();raf=requestAnimationFrame(loop);}
+}
+function fireShot(){
+ if(!game||game.over||game.paused)return;
+ const now=performance.now();if(now-lastFire<55)return;lastFire=now;
+ const p=game.player;
+ if(game.mode==="neon"){
+  const n=p.power>=3?3:p.power>=2?2:1;
+  for(let i=0;i<n;i++)game.bullets.push({x:p.x+(i-(n-1)/2)*11,y:p.y-16,vx:(i-(n-1)/2)*1.8,vy:-8,r:4});
+  beep(720,.045,"square",.018);
+ }else{
+  game.bullets.push({x:p.x,y:p.y-12,vx:0,vy:-8.5,r:4});
+  beep(900,.035,"square",.015);
+ }
+}
+function loop(now){
+ if(!game)return;
+ if(game.paused){drawGame();return;}
+ const dt=Math.min(2,(now-lastTime)/16.67||1);lastTime=now;
+ if(fireHeld&&now-lastFire>60)fireShot();
+ updateGame(dt);drawGame();
+ if(!game.over)raf=requestAnimationFrame(loop);
+}
+function spawnEnemy(){
+ const boss=game.wave%4===0&&!game.boss;
+ if(boss){
+  game.boss={x:425,y:65,r:game.mode==="neon"?37:32,hp:game.mode==="neon"?45:35,max:game.mode==="neon"?45:35,dir:1,shot:0};
+  toast("⚠ BOSS INCOMING");beep(160,.5,"sawtooth",.045);return;
+ }
+ const r=game.mode==="neon"?10+Math.random()*8:12+Math.random()*7;
+ game.enemies.push({x:25+Math.random()*800,y:-r,r,hp:game.mode==="neon"?2:1,max:game.mode==="neon"?2:1,v:(game.mode==="shooter"?0.48+Math.random()*0.42+game.wave*.035:0.72+Math.random()*0.55+game.wave*.06),phase:Math.random()*6});
+}
+function updateGame(dt){
+ const g=game,p=g.player;g.frame+=dt;
+ g.stars.forEach(s=>{s.y+=s.v*dt*(g.mode==="neon"?1.7:1);if(s.y>430){s.y=0;s.x=Math.random()*850;}});
+ const keySpeed=(g.mode==="shooter"?4.8:5.4)*dt;
+ if(moveKeys.left)p.x-=keySpeed;if(moveKeys.right)p.x+=keySpeed;
+ if(moveKeys.up)p.y-=keySpeed;if(moveKeys.down)p.y+=keySpeed;
+ if(!moveKeys.left&&!moveKeys.right)p.x+=(pointer.x-p.x)*Math.min(1,.2*dt);
+ if(!moveKeys.up&&!moveKeys.down)p.y+=(pointer.y-p.y)*Math.min(1,.2*dt);
+ p.x=Math.max(18,Math.min(832,p.x));p.y=Math.max(30,Math.min(405,p.y));
+ p.invuln=Math.max(0,p.invuln-dt);
+ g.spawn-=dt;if(g.spawn<=0){spawnEnemy();g.spawn=Math.max(12,45-g.wave*2);}
+ if(!g.boss&&g.score>=g.wave*80)g.wave++;
+ g.bullets.forEach(b=>{b.x+=b.vx*dt;b.y+=b.vy*dt;});
+ g.bullets=g.bullets.filter(b=>b.y>-20&&b.x>-20&&b.x<870);
+ g.enemies.forEach(e=>{e.y+=e.v*dt;e.x+=Math.sin(g.frame*.04+e.phase)*.7*dt;});
+ g.enemyBullets.forEach(b=>{b.x+=b.vx*dt;b.y+=b.vy*dt;});
+ if(g.boss){
+  const b=g.boss;b.x+=b.dir*(1.5+g.wave*.04)*dt;
+  if(b.x>790)b.dir=-1;if(b.x<60)b.dir=1;
+  b.shot-=dt;if(b.shot<=0){b.shot=35;const dx=p.x-b.x,dy=p.y-b.y,len=Math.hypot(dx,dy)||1;
+   g.enemyBullets.push({x:b.x,y:b.y+20,vx:dx/len*3,vy:Math.max(2,dy/len*3),r:6});
+   if(g.mode==="neon")for(let i=-1;i<=1;i++)g.enemyBullets.push({x:b.x,y:b.y+20,vx:i*2,vy:3.4,r:5});
+  }
+ }
+ // Enemy collisions with player's shots
+ for(let i=g.enemies.length-1;i>=0;i--){
+  const e=g.enemies[i];
+  for(let j=g.bullets.length-1;j>=0;j--){const b=g.bullets[j];if(Math.hypot(e.x-b.x,e.y-b.y)<e.r+b.r){g.bullets.splice(j,1);e.hp--;burst(b.x,b.y,"#00f5ff",4);if(e.hp<=0){g.enemies.splice(i,1);g.score+=10;burst(e.x,e.y,g.mode==="neon"?"#ff3864":"#ff294f",12);if(Math.random()<.12)g.powerups.push({x:e.x,y:e.y,r:8});}break;}}
+ }
+ if(g.boss){
+  for(let j=g.bullets.length-1;j>=0;j--){const b=g.bullets[j];if(Math.hypot(g.boss.x-b.x,g.boss.y-b.y)<g.boss.r+b.r){g.bullets.splice(j,1);g.boss.hp--;burst(b.x,b.y,"#ffc857",3);if(g.boss.hp<=0){burst(g.boss.x,g.boss.y,"#ff3864",50);g.score+=150;g.boss=null;g.wave++;toast("BOSS DEFEATED +150");beep(950,.35,"triangle",.05);}}}
+ }
+ // Power-ups
+ g.powerups.forEach(o=>o.y+=2*dt);
+ for(let i=g.powerups.length-1;i>=0;i--){const o=g.powerups[i];if(Math.hypot(o.x-p.x,o.y-p.y)<o.r+p.r+5){g.powerups.splice(i,1);p.power=Math.min(3,p.power+1);g.score+=5;toast("POWER UPGRADE!");beep(1000,.12,"sine");}else if(o.y>450)g.powerups.splice(i,1);}
+ // Damage from enemy cores and enemy fire
+ for(let i=g.enemies.length-1;i>=0;i--){const e=g.enemies[i];if(e.y>450){g.enemies.splice(i,1);damagePlayer();continue;}if(Math.hypot(e.x-p.x,e.y-p.y)<e.r+p.r&&p.invuln<=0){g.enemies.splice(i,1);damagePlayer();}}
+ for(let i=g.enemyBullets.length-1;i>=0;i--){const b=g.enemyBullets[i];if(b.y>450||b.x<0||b.x>850){g.enemyBullets.splice(i,1);continue;}if(Math.hypot(b.x-p.x,b.y-p.y)<b.r+p.r&&p.invuln<=0){g.enemyBullets.splice(i,1);damagePlayer();}}
+ if(g.mode==="neon"&&g.frame%500<dt){g.powerups.push({x:Math.random()*800+25,y:-10,r:9});}
+ g.particles.forEach(o=>{o.x+=o.vx*dt;o.y+=o.vy*dt;o.life-=dt;});g.particles=g.particles.filter(o=>o.life>0);
+ updateGameUI();
+}
+function damagePlayer(){
+ if(game.player.invuln>0)return;
+ game.lives--;game.player.invuln=65;burst(game.player.x,game.player.y,"#ff3864",18);beep(130,.22,"sawtooth",.05);
+ if(game.lives<=0){game.over=true;saveGameScore(game.mode,game.score);const msg="GAME OVER — Score: "+game.score;$("shStatus").textContent=msg;$("neStatus").textContent=msg;toast(msg);}
+}
+function burst(x,y,color,n){for(let i=0;i<n;i++){const a=Math.random()*Math.PI*2,v=Math.random()*3+1;game.particles.push({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,life:Math.random()*22+8,color});}}
+function updateGameUI(){
+ const g=game;if(!g)return;
+ if(g.mode==="shooter"){$("shScore").textContent=g.score;$("shLives").textContent=g.lives;$("shWave").textContent=g.wave;$("shBoss").textContent=g.boss?g.boss.hp+"/"+g.boss.max:"—";}
+ else{$("neScore").textContent=g.score;$("neLives").textContent=g.lives;$("neWave").textContent=g.wave;$("nePower").textContent=g.player.power;}
+}
+function drawGame(){
+ const g=game;if(!g)return;const c=ctxs[g.mode],cv=canvases[g.mode];c.clearRect(0,0,cv.width,cv.height);
+ const grad=c.createLinearGradient(0,0,0,430);grad.addColorStop(0,"#07152b");grad.addColorStop(1,"#02040b");c.fillStyle=grad;c.fillRect(0,0,850,430);
+ c.fillStyle="#8abfff";g.stars.forEach(s=>{c.globalAlpha=.3+s.s/3;c.fillRect(s.x,s.y,s.s,s.s*2)});c.globalAlpha=1;
+ // Bullets
+ g.bullets.forEach(b=>{c.shadowBlur=14;c.shadowColor="#00f5ff";c.fillStyle="#00f5ff";c.fillRect(b.x-2,b.y-8,4,12)});c.shadowBlur=0;
+ g.enemyBullets.forEach(b=>{c.shadowBlur=12;c.shadowColor="#ff3864";c.fillStyle="#ff3864";c.beginPath();c.arc(b.x,b.y,b.r,0,Math.PI*2);c.fill()});c.shadowBlur=0;
+ // Enemies
+ g.enemies.forEach(e=>{c.shadowBlur=15;c.shadowColor="#ff294f";c.fillStyle="#ff294f";c.beginPath();c.arc(e.x,e.y,e.r,0,Math.PI*2);c.fill();c.shadowBlur=0;c.strokeStyle="#ff9ab0";c.stroke()});
+ // Power-ups
+ g.powerups.forEach(o=>{c.shadowBlur=18;c.shadowColor="#52ffae";c.strokeStyle="#52ffae";c.lineWidth=3;c.beginPath();c.arc(o.x,o.y,o.r,0,Math.PI*2);c.stroke();c.fillStyle="#52ffae";c.fillRect(o.x-2,o.y-5,4,10);c.fillRect(o.x-5,o.y-2,10,4)});c.shadowBlur=0;
+ // Boss
+ if(g.boss){const b=g.boss;c.shadowBlur=24;c.shadowColor="#ff3864";c.fillStyle="#5e1438";c.strokeStyle="#ff3864";c.lineWidth=3;c.beginPath();c.moveTo(b.x,b.y-b.r);c.lineTo(b.x+b.r,b.y-b.r/3);c.lineTo(b.x+b.r*.7,b.y+b.r);c.lineTo(b.x-b.r*.7,b.y+b.r);c.lineTo(b.x-b.r,b.y-b.r/3);c.closePath();c.fill();c.stroke();c.shadowBlur=0;c.fillStyle="#10182a";c.fillRect(b.x-55,b.y-b.r-17,110,7);c.fillStyle="#ff3864";c.fillRect(b.x-55,b.y-b.r-17,110*b.hp/b.max,7);c.fillStyle="#fff";c.font="12px Arial";c.textAlign="center";c.fillText("BOSS",b.x,b.y-b.r-23);}
+ // Player ship
+ const p=g.player;c.save();c.translate(p.x,p.y);c.globalAlpha=p.invuln>0&&Math.floor(g.frame/4)%2===0?.35:1;c.shadowBlur=18;c.shadowColor=g.mode==="neon"?"#287bff":"#00f5ff";c.fillStyle=g.mode==="neon"?"#287bff":"#00c9df";c.beginPath();c.moveTo(0,-18);c.lineTo(15,13);c.lineTo(0,7);c.lineTo(-15,13);c.closePath();c.fill();c.fillStyle="#eaffff";c.fillRect(-3,2,6,9);c.shadowBlur=0;c.restore();
+ g.particles.forEach(o=>{c.globalAlpha=Math.max(0,o.life/25);c.fillStyle=o.color;c.fillRect(o.x,o.y,3,3)});c.globalAlpha=1;
+ if(g.over){c.fillStyle="#020711cc";c.fillRect(0,0,850,430);c.fillStyle="#00f5ff";c.font="bold 38px Arial";c.textAlign="center";c.fillText("MISSION FAILED",425,195);c.fillStyle="#fff";c.font="20px Arial";c.fillText("Score: "+g.score+"  •  Click Restart to try again",425,235);}
+ else if(g.paused){c.fillStyle="#020711aa";c.fillRect(0,0,850,430);c.fillStyle="#00f5ff";c.font="bold 36px Arial";c.textAlign="center";c.fillText("PAUSED",425,220);}
+}
+function setPointer(e,mode){
+ const rect=canvases[mode].getBoundingClientRect();
+ pointer.x=(e.clientX-rect.left)*850/rect.width;
+ pointer.y=(e.clientY-rect.top)*430/rect.height;
+}
+Object.keys(canvases).forEach(mode=>{
+ const cv=canvases[mode];
+ cv.addEventListener("pointermove",e=>{setPointer(e,mode);});
+ cv.addEventListener("pointerdown",e=>{setPointer(e,mode);fireHeld=true;fireShot();cv.setPointerCapture?.(e.pointerId);});
+ cv.addEventListener("pointerup",()=>fireHeld=false);
+ cv.addEventListener("pointercancel",()=>fireHeld=false);
+});
+window.addEventListener("pointerup",()=>fireHeld=false);
+window.addEventListener("keydown",e=>{
+ const active=document.querySelector(".page.active")?.id;
+ if(!game||game.mode!==active)return;
+ if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight","Space","KeyW","KeyA","KeyS","KeyD"].includes(e.code))e.preventDefault();
+ if(e.code==="ArrowLeft"||e.code==="KeyA")moveKeys.left=true;
+ if(e.code==="ArrowRight"||e.code==="KeyD")moveKeys.right=true;
+ if(e.code==="ArrowUp"||e.code==="KeyW")moveKeys.up=true;
+ if(e.code==="ArrowDown"||e.code==="KeyS")moveKeys.down=true;
+ if(e.code==="Space"){fireHeld=true;fireShot();}
+ if(e.code==="Escape")pauseGame();
+});
+window.addEventListener("keyup",e=>{
+ if(e.code==="ArrowLeft"||e.code==="KeyA")moveKeys.left=false;
+ if(e.code==="ArrowRight"||e.code==="KeyD")moveKeys.right=false;
+ if(e.code==="ArrowUp"||e.code==="KeyW")moveKeys.up=false;
+ if(e.code==="ArrowDown"||e.code==="KeyS")moveKeys.down=false;
+ if(e.code==="Space")fireHeld=false;
+});
+window.addEventListener("blur",()=>{fireHeld=false;Object.keys(moveKeys).forEach(k=>moveKeys[k]=false);});
+</script>
+
+<script>
+// ---------- 3D Cyber Vault: Zero-Day Run ----------
+// Three.js is loaded from a pinned CDN above. The rest of the site works without it.
+let d3Renderer=null,d3Scene=null,d3Camera=null,d3Player=null,d3Raf=0,d3LastTime=0;
+let d3State=null,d3FireHeld=false,d3LastShot=0,d3SpawnTimer=0,d3Objects=[],d3Bullets=[],d3Cores=[];
+let d3TargetLane=1,d3Invulnerable=0,d3CoreCount=0,d3Level=1;
+const D3_LANES=[-3,0,3];
+const D3_MATS={};
+let d3Shared={};
+
+function d3Material(name,color,emissive=color,roughness=.32,metalness=.25){
+  return new THREE.MeshStandardMaterial({color,emissive,emissiveIntensity:.65,roughness,metalness});
+}
+
+function initCyber3D(){
+  if(!window.THREE){
+    $('d3Status').textContent=window._cyber3DLibraryFailed?'3D engine failed to load. Check your internet connection and reload the page.':'Loading the 3D engine… wait a moment, then choose Try Again.';
+    $('threeOverlayTitle').textContent=window._cyber3DLibraryFailed?'3D ENGINE UNAVAILABLE':'3D ENGINE LOADING';
+    $('threeOverlayText').textContent=window._cyber3DLibraryFailed?'The rest of Cyber Blasters still works. A working internet connection is needed to load the Three.js 3D library.':'The 3D library is still loading. Wait a moment and try again.';
+    $('threeOverlayButton').textContent='Try Again';
+    $('threeOverlay').style.display='flex';
+    return false;
+  }
+  if(d3Renderer) return true;
+  const canvas=$('threeCanvas');
+  d3Renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false});
+  d3Renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.75));
+  d3Renderer.setClearColor(0x030711,1);
+  d3Scene=new THREE.Scene();
+  d3Scene.background=new THREE.Color(0x030711);
+  d3Scene.fog=new THREE.Fog(0x030711,32,118);
+  d3Camera=new THREE.PerspectiveCamera(62,1,.1,160);
+  d3Camera.position.set(0,5.2,11);
+  d3Camera.lookAt(0,0,-18);
+
+  d3Scene.add(new THREE.HemisphereLight(0xb5e7ff,0x101820,1.25));
+  const keyLight=new THREE.DirectionalLight(0x90eaff,1.1);
+  keyLight.position.set(-4,10,5);d3Scene.add(keyLight);
+  const greenLight=new THREE.PointLight(0x39ff14,1.2,34);greenLight.position.set(0,3,-18);d3Scene.add(greenLight);
+  const orangeLight=new THREE.PointLight(0xff9d00,.8,26);orangeLight.position.set(4,2,-46);d3Scene.add(orangeLight);
+
+  D3_MATS.floor=d3Material('floor',0x0b1218,0x101d25,.8,.3);
+  D3_MATS.rail=d3Material('rail',0x33424c,0x101c25,.35,.65);
+  D3_MATS.green=d3Material('green',0x39ff14,0x39ff14,.25,.25);
+  D3_MATS.red=d3Material('red',0xff294f,0xff163f,.24,.35);
+  D3_MATS.orange=d3Material('orange',0xff9d00,0xff7100,.3,.35);
+  D3_MATS.blue=d3Material('blue',0x287bff,0x006dff,.2,.45);
+  D3_MATS.silver=d3Material('silver',0xcbd5df,0x465c70,.24,.7);
+  D3_MATS.dark=d3Material('dark',0x18232c,0x10202b,.35,.65);
+
+  const floor=new THREE.Mesh(new THREE.PlaneGeometry(14,145),D3_MATS.floor);
+  floor.rotation.x=-Math.PI/2;floor.position.set(0,-1.35,-48);d3Scene.add(floor);
+  // Lane dividers and outer rails run through the virtual corridor.
+  [-1.5,1.5].forEach(x=>{
+    const line=new THREE.Mesh(new THREE.BoxGeometry(.045,.025,145),D3_MATS.green);
+    line.position.set(x,-1.31,-48);d3Scene.add(line);
+  });
+  [-5.4,5.4].forEach(x=>{
+    const rail=new THREE.Mesh(new THREE.BoxGeometry(.24,.28,145),D3_MATS.rail);
+    rail.position.set(x,-1.14,-48);d3Scene.add(rail);
+  });
+  // Repeated side pylons and safety lights add a sense of forward motion.
+  for(let z=8;z>=-110;z-=8){
+    [-5.05,5.05].forEach((x,side)=>{
+      const pylon=new THREE.Mesh(new THREE.BoxGeometry(.22,2.6,.34),D3_MATS.rail);
+      pylon.position.set(x,.1,z);d3Scene.add(pylon);
+      const light=new THREE.Mesh(new THREE.BoxGeometry(.28,.07,.38),side===0?D3_MATS.orange:D3_MATS.green);
+      light.position.set(x,.55,z);d3Scene.add(light);
+    });
+    const laneMark=new THREE.Mesh(new THREE.BoxGeometry(.28,.035,.65),D3_MATS.silver);
+    laneMark.position.set(0,-1.29,z);d3Scene.add(laneMark);
+  }
+  // Distant digital stars.
+  const starPositions=[];
+  for(let i=0;i<350;i++)starPositions.push((Math.random()-.5)*36,Math.random()*18-3,-Math.random()*125+10);
+  const starGeometry=new THREE.BufferGeometry();
+  starGeometry.setAttribute('position',new THREE.Float32BufferAttribute(starPositions,3));
+  const stars=new THREE.Points(starGeometry,new THREE.PointsMaterial({color:0xcbd5df,size:.12,sizeAttenuation:true}));
+  d3Scene.add(stars);
+
+  // Build a low-poly, blue cyber ship.
+  d3Player=new THREE.Group();
+  const body=new THREE.Mesh(new THREE.ConeGeometry(.58,1.65,4),D3_MATS.blue);
+  body.rotation.x=-Math.PI/2;body.rotation.y=Math.PI/4;d3Player.add(body);
+  const cockpit=new THREE.Mesh(new THREE.SphereGeometry(.24,12,8),D3_MATS.silver);
+  cockpit.scale.set(.82,.7,1.45);cockpit.position.set(0,.17,.05);d3Player.add(cockpit);
+  [-1,1].forEach(side=>{
+    const wing=new THREE.Mesh(new THREE.BoxGeometry(.72,.09,.75),D3_MATS.silver);
+    wing.position.set(side*.55,-.02,.22);wing.rotation.y=side*.16;d3Player.add(wing);
+    const engine=new THREE.Mesh(new THREE.CylinderGeometry(.10,.16,.48,8),D3_MATS.orange);
+    engine.rotation.x=Math.PI/2;engine.position.set(side*.32,-.1,.65);d3Player.add(engine);
+  });
+  const shipGlow=new THREE.PointLight(0x287bff,1.2,8);shipGlow.position.set(0,.1,.8);d3Player.add(shipGlow);
+  d3Player.position.set(0,-.55,3.3);d3Scene.add(d3Player);
+
+  d3Shared.droneGeometry=new THREE.IcosahedronGeometry(.74,1);
+  d3Shared.barrierGeometry=new THREE.BoxGeometry(2.0,1.25,.6);
+  d3Shared.coreGeometry=new THREE.OctahedronGeometry(.48,0);
+  d3Shared.bulletGeometry=new THREE.CylinderGeometry(.055,.055,.8,7);
+  d3Shared.ringGeometry=new THREE.TorusGeometry(.86,.045,6,20);
+  d3Shared.barrierStripeGeometry=new THREE.BoxGeometry(1.65,.11,.08);
+  d3Shared.metalRingMaterial=D3_MATS.silver;
+  resizeCyber3D();
+  return true;
+}
+
+function resizeCyber3D(){
+  if(!d3Renderer||!d3Camera)return;
+  const stage=$('threeStage');
+  const width=Math.max(1,stage.clientWidth),height=Math.max(1,stage.clientHeight);
+  d3Renderer.setSize(width,height,false);
+  d3Camera.aspect=width/height;d3Camera.updateProjectionMatrix();
+}
+window.addEventListener('resize',resizeCyber3D);
+
+function startCyber3D(){
+  showPage('cyber3d');
+  if(!initCyber3D())return;
+  cancelAnimationFrame(d3Raf);
+  d3Objects.forEach(o=>d3Scene.remove(o.mesh));
+  d3Bullets.forEach(b=>d3Scene.remove(b.mesh));
+  d3Cores.forEach(c=>d3Scene.remove(c.mesh));
+  d3Objects=[];d3Bullets=[];d3Cores=[];
+  d3TargetLane=1;d3CoreCount=0;d3Level=1;d3Invulnerable=0;d3SpawnTimer=.65;d3LastShot=0;d3FireHeld=false;
+  d3State={score:0,lives:3,level:1,elapsed:0,paused:false,over:false,running:true};
+  d3Player.position.x=0;d3Player.position.y=-.55;
+  $('d3Score').textContent='0';$('d3Lives').textContent='3';$('d3Level').textContent='1';$('d3Cores').textContent='0';
+  $('d3Status').textContent='Mission started! Blast red malware drones, dodge orange firewalls, and collect green data cores.';
+  $('threeOverlay').style.display='none';
+  resizeCyber3D();d3LastTime=performance.now();d3Renderer.render(d3Scene,d3Camera);d3Raf=requestAnimationFrame(animateCyber3D);
+  beep(680,.12,'triangle',.03);
+}
+
+function moveD3Lane(delta,event){
+  if(event)event.preventDefault();
+  if(!d3State||d3State.over||d3State.paused)return;
+  d3TargetLane=Math.max(0,Math.min(2,d3TargetLane+delta));
+  beep(340,.035,'square',.012);
+}
+function setD3Fire(on,event){if(event)event.preventDefault();d3FireHeld=!!on;if(on)shootCyber3D();}
+function pauseCyber3D(){
+  if(!d3State||d3State.over)return;
+  d3State.paused=!d3State.paused;
+  if(d3State.paused){cancelAnimationFrame(d3Raf);$('d3Status').textContent='Paused. Press Pause / Resume to continue.';show3DOverlay('PAUSED','Your mission is paused.','Resume Mission',()=>pauseCyber3D());d3Renderer.render(d3Scene,d3Camera);}
+  else{$('threeOverlay').style.display='none';$('d3Status').textContent='Mission resumed.';d3LastTime=performance.now();d3Raf=requestAnimationFrame(animateCyber3D);}
+}
+function exitCyber3D(){
+  if(d3State){d3State.running=false;d3State.paused=true;}
+  d3FireHeld=false;cancelAnimationFrame(d3Raf);showPage('home');
+}
+function show3DOverlay(title,message,button,action){
+  $('threeOverlayTitle').textContent=title;
+  $('threeOverlayText').textContent=message;
+  const btn=$('threeOverlayButton');btn.textContent=button;btn.onclick=action;
+  $('threeOverlay').style.display='flex';
+}
+function shootCyber3D(){
+  if(!d3State||d3State.over||d3State.paused||!d3State.running)return;
+  const now=performance.now();if(now-d3LastShot<210)return;d3LastShot=now;
+  const mesh=new THREE.Mesh(d3Shared.bulletGeometry,D3_MATS.blue);
+  mesh.rotation.x=Math.PI/2;mesh.position.set(d3Player.position.x,-.45,2.15);
+  const glow=new THREE.PointLight(0x287bff,.65,3);mesh.add(glow);d3Scene.add(mesh);
+  d3Bullets.push({mesh});beep(890,.025,'square',.009);
+}
+function makeCyberThreat(){
+  const lane=Math.floor(Math.random()*3);const isMalware=Math.random()<.72;
+  let group,kind;
+  if(isMalware){
+    group=new THREE.Group();kind='malware';
+    const drone=new THREE.Mesh(d3Shared.droneGeometry,D3_MATS.red);group.add(drone);
+    const ring=new THREE.Mesh(d3Shared.ringGeometry,D3_MATS.orange);ring.rotation.x=Math.PI/2;group.add(ring);
+    const eye=new THREE.Mesh(new THREE.SphereGeometry(.16,10,8),D3_MATS.silver);eye.position.set(0,.08,.58);group.add(eye);
+    group.rotation.z=(Math.random()-.5)*.3;
+  }else{
+    group=new THREE.Group();kind='barrier';
+    const block=new THREE.Mesh(d3Shared.barrierGeometry,D3_MATS.orange);group.add(block);
+    const stripe=new THREE.Mesh(d3Shared.barrierStripeGeometry,D3_MATS.red);stripe.position.set(0,.15,.34);group.add(stripe);
+    const stripe2=new THREE.Mesh(d3Shared.barrierStripeGeometry,D3_MATS.silver);stripe2.position.set(0,-.17,.34);group.add(stripe2);
+  }
+  group.position.set(D3_LANES[lane],-.2,-78);group.userData.kind=kind;d3Scene.add(group);
+  d3Objects.push({mesh:group,kind,lane,alive:true});
+}
+function spawnDataCore(){
+  const lane=Math.floor(Math.random()*3);
+  const mesh=new THREE.Mesh(d3Shared.coreGeometry,D3_MATS.green);
+  mesh.position.set(D3_LANES[lane],.05,-78);d3Scene.add(mesh);d3Cores.push({mesh,lane});
+}
+function animateCyber3D(now){
+  if(!d3State||!d3State.running||d3State.paused)return;
+  const dt=Math.min(.045,Math.max(.001,(now-d3LastTime)/1000));d3LastTime=now;
+  const g=d3State;g.elapsed+=dt;
+  const worldSpeed=17+Math.min(9,(g.level-1)*.65);
+  d3Player.position.x+=(D3_LANES[d3TargetLane]-d3Player.position.x)*Math.min(1,dt*10);
+  d3Player.rotation.z=-(D3_LANES[d3TargetLane]-d3Player.position.x)*.05;
+  d3Camera.position.x+=(d3Player.position.x*.18-d3Camera.position.x)*Math.min(1,dt*2);
+  d3Camera.lookAt(d3Camera.position.x*.15,0,-19);
+  d3SpawnTimer-=dt;
+  if(d3SpawnTimer<=0){makeCyberThreat();if(Math.random()<.42)spawnDataCore();d3SpawnTimer=Math.max(.48,1.08-g.level*.045);}
+  if(d3FireHeld&&now-d3LastShot>210)shootCyber3D();
+  d3Invulnerable=Math.max(0,d3Invulnerable-dt);
+
+  // Advance player shots and check collision with malware.
+  for(let i=d3Bullets.length-1;i>=0;i--){
+    const bullet=d3Bullets[i];bullet.mesh.position.z-=52*dt;
+    if(bullet.mesh.position.z < -88){d3Scene.remove(bullet.mesh);d3Bullets.splice(i,1);continue;}
+    let hit=-1;
+    for(let j=0;j<d3Objects.length;j++){
+      const target=d3Objects[j];
+      if(target.kind!=='malware')continue;
+      if(Math.abs(target.mesh.position.z-bullet.mesh.position.z)<1.0&&Math.abs(target.mesh.position.x-bullet.mesh.position.x)<.95){hit=j;break;}
+    }
+    if(hit>=0){
+      const target=d3Objects[hit];d3Scene.remove(target.mesh);d3Objects.splice(hit,1);d3Scene.remove(bullet.mesh);d3Bullets.splice(i,1);
+      g.score+=25;d3Level=1+Math.floor(g.score/150);g.level=d3Level;
+      $('d3Score').textContent=String(g.score);$('d3Level').textContent=String(g.level);beep(610,.045,'triangle',.018);
+    }
+  }
+
+  // Move threats toward the ship, dodge barriers, collect data cores.
+  for(let i=d3Objects.length-1;i>=0;i--){
+    const item=d3Objects[i];item.mesh.position.z+=worldSpeed*dt;
+    item.mesh.rotation.y+=dt*(item.kind==='malware'?1.9:.4);
+    if(item.kind==='malware')item.mesh.rotation.x+=dt*.75;
+    const closeZ=Math.abs(item.mesh.position.z-d3Player.position.z)<1.35;
+    const closeX=Math.abs(item.mesh.position.x-d3Player.position.x)<1.15;
+    if(closeZ&&closeX&&d3Invulnerable<=0){
+      d3Scene.remove(item.mesh);d3Objects.splice(i,1);g.lives--;d3Invulnerable=1.05;
+      $('d3Lives').textContent=String(g.lives);beep(145,.18,'sawtooth',.035);
+      $('d3Status').textContent=item.kind==='barrier'?'Firewall collision! Change lanes to avoid orange barriers.':'Malware collision! Shoot the red drones before they reach you.';
+      if(g.lives<=0){endCyber3D();return;}
+      continue;
+    }
+    if(item.mesh.position.z>8){d3Scene.remove(item.mesh);d3Objects.splice(i,1);}
+  }
+  for(let i=d3Cores.length-1;i>=0;i--){
+    const core=d3Cores[i];core.mesh.position.z+=worldSpeed*dt;core.mesh.rotation.y+=dt*2.2;core.mesh.rotation.x+=dt*1.1;
+    if(Math.abs(core.mesh.position.z-d3Player.position.z)<1.5&&Math.abs(core.mesh.position.x-d3Player.position.x)<1.2){
+      d3Scene.remove(core.mesh);d3Cores.splice(i,1);d3CoreCount++;g.score+=20;g.lives=Math.min(5,g.lives+1);d3Level=1+Math.floor(g.score/150);g.level=d3Level;
+      $('d3Cores').textContent=String(d3CoreCount);$('d3Score').textContent=String(g.score);$('d3Lives').textContent=String(g.lives);$('d3Level').textContent=String(g.level);
+      $('d3Status').textContent='Data core secured! +20 score and integrity restored.';beep(980,.1,'sine',.025);
+    }else if(core.mesh.position.z>8){d3Scene.remove(core.mesh);d3Cores.splice(i,1);}
+  }
+  d3Renderer.render(d3Scene,d3Camera);
+  d3Raf=requestAnimationFrame(animateCyber3D);
+}
+function endCyber3D(){
+  d3State.over=true;d3State.running=false;d3FireHeld=false;
+  cancelAnimationFrame(d3Raf);
+  const score=d3State.score;
+  store.set('bestCyber3D',Math.max(store.get('bestCyber3D',0),score));
+  renderHome();
+  const history=store.get('history',[]);history.unshift({game:'3D CYBER VAULT: ZERO-DAY RUN',score,date:new Date().toLocaleString()});store.set('history',history.slice(0,20));
+  $('d3Status').textContent='Integrity exhausted. Restart the mission to try again.';
+  show3DOverlay('SYSTEM BREACHED','Score: '+score+' · Data cores collected: '+d3CoreCount+'. Try again and protect the vault.','Restart Mission',startCyber3D);
+  renderScores();beep(120,.4,'sawtooth',.04);d3Renderer.render(d3Scene,d3Camera);
+}
+function stopCyber3DForNavigation(){
+  if(d3State&&d3State.running){d3State.paused=true;d3State.running=false;d3FireHeld=false;cancelAnimationFrame(d3Raf);}
+}
+window.startCyber3D=startCyber3D;
+window.pauseCyber3D=pauseCyber3D;
+window.exitCyber3D=exitCyber3D;
+window.moveD3Lane=moveD3Lane;
+window.setD3Fire=setD3Fire;
+window._stopCyber3D=stopCyber3DForNavigation;
+
+window.addEventListener('keydown',event=>{
+  if(document.querySelector('.page.active')?.id!=='cyber3d'||!d3State||d3State.over)return;
+  if(['ArrowLeft','ArrowRight','KeyA','KeyD','Space'].includes(event.code))event.preventDefault();
+  if(event.repeat&&(event.code==='ArrowLeft'||event.code==='ArrowRight'||event.code==='KeyA'||event.code==='KeyD'))return;
+  if(event.code==='ArrowLeft'||event.code==='KeyA')moveD3Lane(-1);
+  if(event.code==='ArrowRight'||event.code==='KeyD')moveD3Lane(1);
+  if(event.code==='Space'){d3FireHeld=true;shootCyber3D();}
+  if(event.code==='Escape')pauseCyber3D();
+});
+window.addEventListener('keyup',event=>{if(event.code==='Space')d3FireHeld=false;});
+window.addEventListener('blur',()=>{d3FireHeld=false;});
+</script>
+
+
+<script>
+// ---------- Cyber Spin: animated challenge wheel ----------
+const cyberWheelItems = [
+  {key:'phish',label:['PHISHING','GAME'],name:'Phishing: Safe or Not Safe?',desc:'Classify ten messages, spot suspicious requests, and learn why they look safe or unsafe.',color:'#ff3864',text:'#ffffff',action:()=>startClassificationGame('phish')},
+  {key:'password',label:['PASSWORD','GAME'],name:'Password: Strong or Not Strong?',desc:'Judge ten fictional passwords and sharpen your instinct for predictable credentials.',color:'#ff9d00',text:'#11150d',action:()=>startClassificationGame('password')},
+  {key:'quiz',label:['CYBER','QUIZ'],name:'Cybersecurity Quiz',desc:'Take a quick knowledge challenge covering phishing, MFA, malware, privacy and more.',color:'#d8e0e7',text:'#111820',action:()=>{showPage('quiz');beginQuiz();}},
+  {key:'field',label:['FIELD','DRILL'],name:'Cyber Awareness Field Drill',desc:'Face realistic scenarios involving suspicious payments, unexpected MFA prompts and stolen passwords.',color:'#39ff14',text:'#101510',action:()=>{showPage('learn');startAwarenessAssessment();}},
+  {key:'threat',label:['THREAT','VECTOR'],name:'THREAT VECTOR: Core Defense',desc:'Launch the 2D defense arcade game. Blast red threat cores and survive the incoming waves.',color:'#ff3864',text:'#ffffff',action:()=>startGame('shooter')},
+  {key:'neon',label:['NEON','BREACH'],name:'NEON BREACH: Apocalypse Protocol',desc:'Pilot your ship through hostile space, destroy drones, collect upgrades and fight bosses.',color:'#ff9d00',text:'#11150d',action:()=>startGame('neon')},
+  {key:'vault',label:['3D CYBER','VAULT'],name:'3D Cyber Vault: Zero-Day Run',desc:'Enter the 3D corridor, blast malware drones, dodge orange barriers and collect green data cores.',color:'#39ff14',text:'#101510',action:()=>startCyber3D()},
+  {key:'lab',label:['PASSWORD','LAB'],name:'Password Lab',desc:'Test a fictional password, get a strength estimate and learn how to improve it safely.',color:'#d8e0e7',text:'#111820',action:()=>showPage('password')},
+  {key:'scan',label:['PHISHING','SCAN'],name:'Phishing Detective',desc:'Inspect a suspicious sample message for urgency, credential requests, strange links and other warning signs.',color:'#ff3864',text:'#ffffff',action:()=>showPage('phishing')},
+  {key:'friday',label:['FRIDAY','BONUS'],name:'FRIDAY the Cyber Man',desc:'Ask your built-in cyber helper for a quick lesson or a safety tip before your next mission.',color:'#ff9d00',text:'#11150d',action:()=>{showPage('friday');askExample('Give me one useful cybersecurity safety tip.');}}
+];
+const cyberWheelCanvas=$('spinWheelCanvas');
+const cyberWheelCtx=cyberWheelCanvas.getContext('2d');
+const cyberWheelState={rotation:0,spinning:false,selected:-1,total:0,round:0,history:[],used:new Set(),mustPlay:false,launched:false};
+const cyberWheelSegment=(Math.PI*2)/cyberWheelItems.length;
+function drawCyberWheel(){
+ if(!cyberWheelCtx)return;
+ const ctx=cyberWheelCtx,w=cyberWheelCanvas.width,cx=w/2,cy=w/2,r=w/2-15;
+ ctx.clearRect(0,0,w,w);
+ // subtle radial backing and outer neon rim
+ const backing=ctx.createRadialGradient(cx,cy,35,cx,cy,r+14);backing.addColorStop(0,'#202b27');backing.addColorStop(1,'#070d0f');
+ ctx.fillStyle=backing;ctx.beginPath();ctx.arc(cx,cy,r+12,0,Math.PI*2);ctx.fill();
+ ctx.save();ctx.translate(cx,cy);ctx.rotate(cyberWheelState.rotation);
+ cyberWheelItems.forEach((item,i)=>{
+  const start=-Math.PI/2-cyberWheelSegment/2+i*cyberWheelSegment;
+  const end=start+cyberWheelSegment;
+  ctx.beginPath();ctx.moveTo(0,0);ctx.arc(0,0,r,start,end);ctx.closePath();ctx.fillStyle=item.color;ctx.fill();
+  ctx.strokeStyle='#0a1111';ctx.lineWidth=4;ctx.stroke();
+  // glossy segment edge
+  ctx.beginPath();ctx.arc(0,0,r-8,start+.012,end-.012);ctx.strokeStyle='rgba(255,255,255,.22)';ctx.lineWidth=1.4;ctx.stroke();
+  // radial two-line label, leaving room for hub
+  const mid=start+cyberWheelSegment/2;
+  ctx.save();ctx.rotate(mid);ctx.translate(r*.64,0);ctx.rotate(Math.PI/2);
+  ctx.fillStyle=item.text;ctx.textAlign='center';ctx.textBaseline='middle';ctx.font='900 18px Arial';
+  ctx.shadowColor='rgba(0,0,0,.25)';ctx.shadowBlur=2;
+  const lines=item.label;
+  ctx.fillText(lines[0],0,-10);
+  ctx.font='800 15px Arial';ctx.fillText(lines[1],0,11);
+  ctx.restore();
+ });
+ // boundary rings and metallic center hub
+ ctx.beginPath();ctx.arc(0,0,r-4,0,Math.PI*2);ctx.strokeStyle='#f5f7f4';ctx.lineWidth=5;ctx.stroke();
+ ctx.beginPath();ctx.arc(0,0,r-12,0,Math.PI*2);ctx.strokeStyle='#222d2a';ctx.lineWidth=3;ctx.stroke();
+ const hub=ctx.createRadialGradient(-14,-17,3,0,0,62);hub.addColorStop(0,'#fbfff8');hub.addColorStop(.25,'#c9d4cf');hub.addColorStop(.55,'#495851');hub.addColorStop(1,'#111917');
+ ctx.beginPath();ctx.arc(0,0,58,0,Math.PI*2);ctx.fillStyle=hub;ctx.fill();ctx.strokeStyle='#39ff14';ctx.lineWidth=4;ctx.stroke();
+ ctx.fillStyle='#0a100d';ctx.textAlign='center';ctx.textBaseline='middle';ctx.font='900 17px Arial';ctx.fillText('CYBER',0,-8);ctx.font='900 14px Arial';ctx.fillText('SPIN',0,13);
+ ctx.restore();
+ // Outer indicator lights
+ for(let i=0;i<40;i++){const a=i*Math.PI*2/40-Math.PI/2,rr=r+6;ctx.beginPath();ctx.arc(cx+Math.cos(a)*rr,cy+Math.sin(a)*rr, i%5===0?4:2.3,0,Math.PI*2);ctx.fillStyle=i%5===0?(i%10===0?'#ff3864':'#ff9d00'):'#39ff14';ctx.shadowColor=ctx.fillStyle;ctx.shadowBlur=i%5===0?9:3;ctx.fill();}
+ ctx.shadowBlur=0;
+}
+function renderCyberWheelStats(){
+ $('spinTotal').textContent=String(cyberWheelState.total);
+ $('spinUnique').textContent=cyberWheelState.used.size+' / '+cyberWheelItems.length;
+ const list=$('spinHistoryList');
+ if(!cyberWheelState.history.length){list.innerHTML='<div class="spin-history-item"><b>No spins yet</b><span>Spin to begin</span></div>';return;}
+ list.innerHTML=cyberWheelState.history.slice(0,4).map((entry,i)=>'<div class="spin-history-item"><b>'+String(i+1).padStart(2,'0')+' · '+escapeHTML(entry.name)+'</b><span>ROUND '+entry.round+'</span></div>').join('');
+}
+function spinCyberWheel(){
+ if(cyberWheelState.spinning||cyberWheelState.mustPlay)return;
+ cyberWheelState.spinning=true;
+ cyberWheelState.round++;
+ const spinBtn=$('spinWheelButton');spinBtn.disabled=true;spinBtn.textContent='✦ SPINNING…';
+ $('spinLaunchButton').disabled=true;
+ $('spinResultEyebrow').textContent='ROUND '+cyberWheelState.round+' · SCANNING CHALLENGES';
+ $('spinResultTitle').textContent='The wheel is choosing…';
+ $('spinResultDescription').textContent='Ten possible missions. One randomized result. Get ready to launch.';
+ const targetIndex=Math.floor(Math.random()*cyberWheelItems.length);
+ const startRotation=cyberWheelState.rotation;
+ const segment=cyberWheelSegment;
+ const extraTurns=(5+Math.floor(Math.random()*3))*Math.PI*2;
+ const normalizedEnd=(((-targetIndex*segment-startRotation)%(Math.PI*2))+(Math.PI*2))%(Math.PI*2);
+ const endRotation=startRotation+extraTurns+normalizedEnd;
+ const duration=4700+Math.random()*900;
+ const started=performance.now();
+ let lastTick=-1;
+ function frame(now){
+  const raw=Math.min(1,(now-started)/duration);
+  const eased=1-Math.pow(1-raw,4);
+  cyberWheelState.rotation=startRotation+(endRotation-startRotation)*eased;
+  drawCyberWheel();
+  const tick=Math.floor(cyberWheelState.rotation/cyberWheelSegment);
+  if(tick!==lastTick){lastTick=tick;if(raw<.92)beep(160+Math.min(500,(1-raw)*250),.022,'square',.006);}
+  if(raw<1){requestAnimationFrame(frame);return;}
+  // Normalize rotation for the next round while preserving the exact result.
+  cyberWheelState.rotation=((endRotation%(Math.PI*2))+(Math.PI*2))%(Math.PI*2);
+  drawCyberWheel();
+  cyberWheelState.spinning=false;
+  cyberWheelState.selected=targetIndex;
+  const item=cyberWheelItems[targetIndex];
+  cyberWheelState.total++;
+  cyberWheelState.used.add(item.key);
+  cyberWheelState.history.unshift({name:item.name,round:cyberWheelState.round,key:item.key});
+  cyberWheelState.history=cyberWheelState.history.slice(0,10);
+  const allHistory=store.get('history',[]);
+  allHistory.unshift({game:'Cyber Spin Wheel',score:item.name,date:new Date().toLocaleString()});
+  store.set('history',allHistory.slice(0,20));
+  $('spinResultEyebrow').textContent='ROUND '+cyberWheelState.round+' · MISSION LOCKED';
+  $('spinResultTitle').textContent=item.name;
+  $('spinResultTitle').style.color=item.color;
+  $('spinResultDescription').textContent=item.desc;
+  $('spinLaunchButton').disabled=false;
+  $('spinLaunchButton').textContent='PLAY THIS CHALLENGE ↗';
+  cyberWheelState.mustPlay=true;cyberWheelState.launched=false;
+  spinBtn.disabled=true;spinBtn.textContent='PLAY YOUR CHALLENGE FIRST';
+  renderCyberWheelStats();renderScores();log('Cyber Spin selected: '+item.name);
+  toast('WHEEL STOPPED: '+item.name.toUpperCase());beep(880,.22,'triangle',.035);
+ }
+ requestAnimationFrame(frame);
+}
+function launchCyberWheelPick(){
+ const item=cyberWheelItems[cyberWheelState.selected];
+ if(!item||cyberWheelState.spinning||!cyberWheelState.mustPlay||cyberWheelState.launched)return;
+ cyberWheelState.launched=true;
+ $('spinLaunchButton').disabled=true;$('spinLaunchButton').textContent='CHALLENGE LAUNCHED ✓';
+ $('spinResultDescription').textContent='Your selected challenge is now active. Play it, then return to the wheel to unlock your next spin.';
+ log('Launching wheel mission: '+item.name);
+ item.action();
+}
+// Require the player to launch the randomly selected challenge before another spin. Returning to the wheel unlocks the next round.
+const cyberWheelOriginalShowPage=showPage;
+showPage=function(id){
+ const previous=document.querySelector('.page.active')?.id;
+ if(id==='spinWheel'&&previous!=='spinWheel'&&cyberWheelState.mustPlay&&cyberWheelState.launched){
+   cyberWheelState.mustPlay=false;cyberWheelState.launched=false;
+   $('spinWheelButton').disabled=false;$('spinWheelButton').textContent='⚡ SPIN AGAIN';
+   $('spinLaunchButton').disabled=true;$('spinLaunchButton').textContent='CHALLENGE COMPLETED ✓';
+   $('spinResultDescription').textContent='Challenge returned! Spin again to discover your next mission.';
+ }
+ return cyberWheelOriginalShowPage(id);
+};
+function resetCyberWheel(){
+ if(cyberWheelState.spinning)return;
+ cyberWheelState.rotation=0;cyberWheelState.selected=-1;cyberWheelState.round=0;cyberWheelState.total=0;cyberWheelState.used.clear();cyberWheelState.history=[];cyberWheelState.mustPlay=false;cyberWheelState.launched=false;
+ $('spinResultEyebrow').textContent='AWAITING SPIN · ROUND 0';
+ $('spinResultTitle').textContent='Ready, Defender?';$('spinResultTitle').style.color='#39ff14';
+ $('spinResultDescription').textContent='Spin to receive a surprise cybersecurity mission. Your result will appear here, with a button to jump directly into it.';
+ $('spinWheelButton').disabled=false;$('spinWheelButton').textContent='⚡ SPIN THE WHEEL';
+ $('spinLaunchButton').disabled=true;$('spinLaunchButton').textContent='LAUNCH MISSION ↗';
+ renderCyberWheelStats();drawCyberWheel();
+}
+drawCyberWheel();
+renderCyberWheelStats();
+</script>
+
+</body>
+</html>
+
+
